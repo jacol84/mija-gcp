@@ -8,4 +8,6 @@
  */
 
 rootProject.name = "mija-gcp"
-include("app", "list", "utilities")
+include("gpc-app")
+include("gpc-list")
+include("gpc-utilities")
