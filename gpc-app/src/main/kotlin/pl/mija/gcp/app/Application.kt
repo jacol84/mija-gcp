@@ -81,9 +81,12 @@ fun Application.module(testing: Boolean = false) {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
+        post("/"){
+            call.respondText("POST HELLO WORLD!", contentType = ContentType.Text.Plain)
+        }
 
         get("/html-dsl") {
-            val toString = UUID.randomUUID().toString()
+            val uuidRandom = UUID.randomUUID().toString()
             call.respondHtml {
                 body {
                     h1 { +"HTML" }
@@ -96,7 +99,7 @@ fun Application.module(testing: Boolean = false) {
                         span { +"TEA !!!!!!!!!!" }
                     }
                     div { +uuid.toString() }
-                    div { +toString }
+                    div { +uuidRandom }
                 }
             }
         }

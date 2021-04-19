@@ -11,3 +11,4 @@ rootProject.name = "mija-gcp"
 include("gpc-app")
 include("gpc-list")
 include("gpc-utilities")
+include("gpc-web")
