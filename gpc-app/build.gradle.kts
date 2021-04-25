@@ -10,23 +10,22 @@ plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 repositories {
-    jcenter()
-    mavenLocal()
+    mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://kotlin.bintray.com/kotlin-js-wrappers") }
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
 }
 dependencies {
-    implementation("org.apache.commons:commons-text")
-    implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("io.ktor:ktor-webjars:$ktor_version")
-    implementation("io.ktor:ktor-websockets:$ktor_version")
-    implementation("io.ktor:ktor-html-builder:$ktor_version")
-    implementation("io.ktor:ktor-gson:$ktor_version")
-    implementation("io.ktor:ktor-locations:$ktor_version")
-    implementation("org.jetbrains:kotlin-css-jvm:1.0.0-pre.31-kotlin-1.2.41")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation(Libs.Apache.commonsText)
+    implementation(Libs.Ktor.core)
+    implementation(Libs.Ktor.serverNetty)
+    implementation(Libs.Ktor.webjars)
+    implementation(Libs.Ktor.websockets)
+    implementation(Libs.Ktor.html)
+    implementation(Libs.Ktor.gson)
+    implementation(Libs.Ktor.location)
+    implementation(Libs.Jetbrains.kotlinCss)
+    implementation(Libs.Logback.classic)
     implementation(project(":gpc-utilities"))
     implementation(kotlin("stdlib-jdk8"))
 }
@@ -46,18 +45,11 @@ tasks.withType<Jar> {
     }
 }
 
-//kotlin.sourceSets["main"].kotlin.srcDirs("src")
-//kotlin.sourceSets["test"].kotlin.srcDirs("test")
-//
-//sourceSets["main"].resources.srcDirs("resources")
-//sourceSets["test"].resources.srcDirs("testresources")
-
-
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
 }
