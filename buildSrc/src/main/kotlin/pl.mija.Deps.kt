@@ -17,9 +17,12 @@ object Libs {
         const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     }
 
+
+
     object JUnit {
-        const val engine = "org.junit.jupiter:junit-jupiter-engine"
-        const val api = "org.junit.jupiter:junit-jupiter-api:5.6.2"
+        const val version = "5.6.2"
+        const val engine = "org.junit.jupiter:junit-jupiter-engine:$version"
+        const val api = "org.junit.jupiter:junit-jupiter-api:$version"
     }
 
     object Ktor {

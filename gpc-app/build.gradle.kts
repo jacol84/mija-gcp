@@ -47,9 +47,11 @@ tasks.withType<Jar> {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = JavaVersion.VERSION_11.toString()
+
+//    allWarningsAsErrors = true
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = JavaVersion.VERSION_11.toString()
 }

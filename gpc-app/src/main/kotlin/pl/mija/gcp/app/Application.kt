@@ -13,8 +13,14 @@ import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.webjars.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.css.*
 import kotlinx.html.*
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -24,10 +30,19 @@ import kotlin.collections.set
 val uuid = UUID.randomUUID()
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+class Application2{
+    companion object {
+        val logger by logger()
+    }
+}
 
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+
+    runBlocking {
+        cos()
+    }
 
     install(CORS) {
         method(HttpMethod.Options)
@@ -170,6 +185,29 @@ fun Application.module(testing: Boolean = false) {
             }
         }
     }
+
+}
+fun <R : Any> R.logger(): Lazy<Logger> {
+    return lazy { LoggerFactory.getLogger(this::class.java.name) }
+}
+
+private suspend fun cos() {
+//    launch {
+//        delay(200L)
+//        println("Task from runBlocking")
+//    }
+
+    coroutineScope { // Creates a new coroutine scope
+        launch {
+            delay(500L)
+            Application2.logger.info("Task from nested launch")
+        }
+
+        delay(100L)
+        Application2.logger.info("Task from coroutine scope") // This line will be printed before nested launch
+    }
+
+    Application2.logger.info("Coroutine scope is over") // This
 }
 
 @Location("/location/{name}")

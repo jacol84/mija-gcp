@@ -16,6 +16,7 @@ dependencies {
     implementation(platform(Libs.Jetbrains.kotlinBom))
     testImplementation(Libs.JUnit.api)
     testRuntimeOnly(Libs.JUnit.engine)
+    testImplementation(kotlin("test-junit5"))
 }
 
 tasks.test {
