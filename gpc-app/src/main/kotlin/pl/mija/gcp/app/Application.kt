@@ -201,6 +201,14 @@ private suspend fun cos() {
         launch {
             delay(500L)
             Application2.logger.info("Task from nested launch")
+        }// Creates a new coroutine scope
+        launch {
+            delay(500L)
+            Application2.logger.info("Task from nested launch 2")
+        }// Creates a new coroutine scope
+        launch {
+            delay(500L)
+            Application2.logger.info("Task from nested launch 3")
         }
 
         delay(100L)
