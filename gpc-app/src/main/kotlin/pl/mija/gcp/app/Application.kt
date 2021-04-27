@@ -21,6 +21,7 @@ import kotlinx.css.*
 import kotlinx.html.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import pl.mija.gcp.app.user.UserController
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -93,6 +94,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     routing {
+        it.UserController.userController()
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
@@ -187,6 +189,9 @@ fun Application.module(testing: Boolean = false) {
     }
 
 }
+
+
+
 fun <R : Any> R.logger(): Lazy<Logger> {
     return lazy { LoggerFactory.getLogger(this::class.java.name) }
 }
