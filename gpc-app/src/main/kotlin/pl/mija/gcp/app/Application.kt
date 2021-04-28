@@ -94,7 +94,10 @@ fun Application.module(testing: Boolean = false) {
     }
 
     routing {
-        it.UserController.userController()
+        route("api"){
+            UserController().api()()
+        }
+
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
