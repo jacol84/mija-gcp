@@ -17,22 +17,25 @@ fun userAPI(): Route.() -> Unit = {
             val result = UserController().getAll()
             call.respondText(Gson().toJson(result), ContentType.Application.Json)
         }
+        post("/user") {
+            TODO("read post parameter")
+            val create = UserController().create()
+            call.respond(create)
+        }
         get("/user/{id}") {
             val id = call.parameters["id"]!!.toLong()
             val result = UserController().getById(id)
             call.respondText(Gson().toJson(result), contentType = ContentType.Application.Json)
         }
-        post("/user") {
-            UserController().createRandom()
-            call.respondText(Gson().toJson(true), contentType = ContentType.Application.Json)
-        }
-        put("/user") {
+        put("/user/{id}") {
+//            TODO()
             val result = UserController().getAll()
             call.respondText(Gson().toJson(result), contentType = ContentType.Application.Json)
         }
-        delete("/user") {
-            val result = UserController().getAll()
-            call.respondText(Gson().toJson(result), contentType = ContentType.Application.Json)
+        delete("/user/{id}") {
+            val id = call.parameters["id"]!!.toLong()
+            val delete = UserController().delete(id)
+            call.respondText(Gson().toJson(delete), contentType = ContentType.Application.Json)
         }
     }
 }
@@ -45,12 +48,17 @@ class UserController {
     }
 
     fun getById(id: Long): User? {
-        return mutableList.find { it.id.equals(id) }
+        return mutableList.find { it.id == id }
     }
 
-    fun createRandom(): List<User> {
-        mutableList.add(User(id.incrementAndGet(), "Jacek", UUID.randomUUID().toString()))
-        return mutableList
+    fun create(name: String = "Jacek", lastName: String = UUID.randomUUID().toString()): User {
+        val element = User(id.incrementAndGet(), name, lastName)
+        mutableList.add(element)
+        return element
+    }
+
+    fun delete(id: Long): Boolean {
+        return mutableList.removeIf { it.id == id }
     }
 
 
