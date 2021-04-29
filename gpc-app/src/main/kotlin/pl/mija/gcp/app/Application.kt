@@ -21,7 +21,7 @@ import kotlinx.css.*
 import kotlinx.html.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import pl.mija.gcp.app.user.UserController
+import pl.mija.gcp.app.user.userAPI
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -95,7 +95,7 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         route("api"){
-            UserController().api()()
+            userAPI()()
         }
 
         get("/") {
