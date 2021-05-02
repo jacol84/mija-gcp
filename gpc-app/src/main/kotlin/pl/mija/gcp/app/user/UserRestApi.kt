@@ -13,25 +13,25 @@ val id = AtomicLong(0)
 fun Route.userApi() {
 //    accept(ContentType.Application.Json) {
     get("/user") {
-        val result = UserController().getAll()
+        val result = UsersController().getAll()
         call.respond(HttpStatusCode.OK, result)
     }
     get("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
-        val result = UserController().getById(id)
+        val result = UsersController().getById(id)
         if (result != null) call.respond(result) else call.respond(HttpStatusCode.NotFound, MessageValid("No found user by id=$id"))
 
     }
     post("/user") {
         val user = call.receive<UserCreate>()
-        val create = UserController().create(user)
+        val create = UsersController().create(user)
         call.respond(HttpStatusCode.Created, create)
     }
     put("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
         val user = call.receive<User>()
         if (user.id == id) {
-            val result = UserController().put(id, user)
+            val result = UsersController().put(id, user)
             call.respond(HttpStatusCode.Created, result)
         } else {
             call.respond(HttpStatusCode.NotFound, MessageValid("No found user by id=$id"))
@@ -39,7 +39,7 @@ fun Route.userApi() {
     }
     delete("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
-        val delete = UserController().delete(id)
+        val delete = UsersController().delete(id)
         call.respond(HttpStatusCode.OK, delete)
     }
     //}

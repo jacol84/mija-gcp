@@ -3,9 +3,9 @@ package pl.mija.gcp.app.user
 
 internal val mutableList = mutableListOf<User>()
 
-internal class UserController {
+internal class UsersController {
     fun getAll(): List<User> {
-        return mutableList
+        return mutableList.toList()
     }
 
     fun getById(id: Long): User? {
