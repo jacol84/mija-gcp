@@ -24,6 +24,8 @@ dependencies {
     implementation(Libs.Ktor.html)
     implementation(Libs.Ktor.gson)
     implementation(Libs.Ktor.location)
+    implementation(Libs.Ktor.serialization)
+
     implementation(Libs.Jetbrains.kotlinCss)
     implementation(Libs.Logback.classic)
     implementation(project(":gpc-utilities"))
@@ -32,7 +34,6 @@ dependencies {
 
 application {
     mainClass.set("pl.mija.gcp.app.ApplicationKt")
-    setMainClassName("pl.mija.gcp.app.ApplicationKt")
 }
 
 tasks.withType<Jar> {

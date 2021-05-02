@@ -35,6 +35,7 @@ object Libs {
         const val html = "io.ktor:ktor-html-builder:$version"
         const val gson = "io.ktor:ktor-gson:$version"
         const val location = "io.ktor:ktor-locations:$version"
+        const val serialization = "io.ktor:ktor-serialization:$version"
 
 //        const val clientJs = "io.ktor:ktor-client-js:$version"
 //        const val clientJvm = "io.ktor:ktor-client-core-jvm:$version"
