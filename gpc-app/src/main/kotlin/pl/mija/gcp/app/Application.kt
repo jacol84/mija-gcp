@@ -19,13 +19,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.css.*
 import kotlinx.html.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import pl.mija.gcp.app.user.userAPI
+import pl.mija.gcp.app.user.userApi
+import pl.mija.gcp.app.util.mijaLogger
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.mapOf
 import kotlin.collections.set
 
 val uuid = UUID.randomUUID()
@@ -33,7 +31,7 @@ val uuid = UUID.randomUUID()
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 class Application2{
     companion object {
-        val logger by logger()
+        val logger by mijaLogger()
     }
 }
 
@@ -69,6 +67,8 @@ fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation) {
         gson {
         }
+//        json()
+//        register(ContentType.Application.Xml, CustomXmlConverter())
     }
 
     install(Locations) {
@@ -95,7 +95,7 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         route("api"){
-            userAPI()()
+            userApi()
         }
 
         get("/") {
@@ -193,11 +193,6 @@ fun Application.module(testing: Boolean = false) {
 
 }
 
-
-
-fun <R : Any> R.logger(): Lazy<Logger> {
-    return lazy { LoggerFactory.getLogger(this::class.java.name) }
-}
 
 private suspend fun cos() {
 //    launch {
