@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import pl.mija.gcp.app.controller.MessageValid
 import java.util.concurrent.atomic.AtomicLong
 
 val id = AtomicLong(0)
@@ -18,7 +19,7 @@ fun Route.userApi() {
     get("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
         val result = UserController().getById(id)
-        if (result != null) call.respond(result) else call.respond(HttpStatusCode.NotFound, "No found user by id=$id")
+        if (result != null) call.respond(result) else call.respond(HttpStatusCode.NotFound, MessageValid("No found user by id=$id"))
 
     }
     post("/user") {
@@ -33,7 +34,7 @@ fun Route.userApi() {
             val result = UserController().put(id, user)
             call.respond(HttpStatusCode.Created, result)
         } else {
-            call.respond(HttpStatusCode.NotFound, "No found user by id=$id")
+            call.respond(HttpStatusCode.NotFound, MessageValid("No found user by id=$id"))
         }
     }
     delete("/user/{id}") {
