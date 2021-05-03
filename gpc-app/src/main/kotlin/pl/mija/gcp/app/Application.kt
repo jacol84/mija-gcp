@@ -85,12 +85,12 @@ fun Application.module(testing: Boolean = false) {
     install(Webjars) {
         path = "/webjars" //defaults to /webjars
         zone = ZoneId.systemDefault() //defaults to ZoneId.systemDefault()
-        zone = ZoneId.of("Europe/Warsaw"); //defaults to ZoneId.systemDefault()
+        zone = ZoneId.of("Europe/Warsaw") //defaults to ZoneId.systemDefault()
     }
 
-    install(io.ktor.websocket.WebSockets) {
-        pingPeriodMillis = 15000L;
-        timeoutMillis = 15000L;
+    install(WebSockets) {
+        pingPeriodMillis = 15000L
+        timeoutMillis = 15000L
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }

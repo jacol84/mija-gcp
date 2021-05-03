@@ -23,7 +23,7 @@ private class XmlConverter(private val xml: XmlMapper) : ContentConverter {
         context: PipelineContext<Any, ApplicationCall>,
         contentType: ContentType,
         value: Any
-    ): Any? {
+    ): Any {
         return withContext(Dispatchers.IO) {
             TextContent(xml.writeValueAsString(value), contentType.withCharset(context.call.suitableCharset()))
         }
@@ -38,7 +38,7 @@ private class XmlConverter(private val xml: XmlMapper) : ContentConverter {
         return withContext(Dispatchers.IO) {
             val reader = channel.toInputStream().reader(context.call.request.contentCharset() ?: Charsets.UTF_8)
             val readText = reader.readText()
-            xml.readValue(readText.apply { println(this) }, javaType.javaObjectType)
+            xml.readValue(readText, javaType.javaObjectType)
         }
     }
 }
