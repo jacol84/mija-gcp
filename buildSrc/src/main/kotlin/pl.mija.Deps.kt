@@ -17,12 +17,17 @@ object Libs {
         const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     }
 
-
-
     object JUnit {
-        const val version = "5.6.2"
+        private const val version = "5.6.2"
         const val engine = "org.junit.jupiter:junit-jupiter-engine:$version"
         const val api = "org.junit.jupiter:junit-jupiter-api:$version"
+    }
+
+    object Jackson {
+        private const val version = "2.12.3"
+        const val databind = "com.fasterxml.jackson.core:jackson-databind:$version"
+        const val xml = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$version"
+        const val kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:$version"
     }
 
     object Ktor {
@@ -35,7 +40,7 @@ object Libs {
         const val html = "io.ktor:ktor-html-builder:$version"
         const val gson = "io.ktor:ktor-gson:$version"
         const val location = "io.ktor:ktor-locations:$version"
-        const val serialization = "io.ktor:ktor-serialization:$version"
+
 
 //        const val clientJs = "io.ktor:ktor-client-js:$version"
 //        const val clientJvm = "io.ktor:ktor-client-core-jvm:$version"

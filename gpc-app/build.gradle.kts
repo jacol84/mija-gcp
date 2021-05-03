@@ -24,7 +24,9 @@ dependencies {
     implementation(Libs.Ktor.html)
     implementation(Libs.Ktor.gson)
     implementation(Libs.Ktor.location)
-    implementation(Libs.Ktor.serialization)
+    implementation(Libs.Jackson.databind)
+    implementation(Libs.Jackson.xml)
+    implementation(Libs.Jackson.kotlin)
 
     implementation(Libs.Jetbrains.kotlinCss)
     implementation(Libs.Logback.classic)
