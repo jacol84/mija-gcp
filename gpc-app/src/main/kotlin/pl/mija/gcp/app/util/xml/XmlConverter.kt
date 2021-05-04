@@ -1,9 +1,10 @@
-package pl.mija.gcp.app.util
+package pl.mija.gcp.app.util.xml
 
 import com.fasterxml.jackson.core.util.DefaultIndenter
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -15,7 +16,6 @@ import io.ktor.utils.io.jvm.javaio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.reflect.jvm.jvmErasure
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
 
 private class XmlConverter(private val xml: XmlMapper) : ContentConverter {
@@ -48,8 +48,8 @@ fun ContentNegotiation.Configuration.xml(
     block: ObjectMapper.() -> Unit = {}
 ) {
     val mapper = XmlMapper()
-    mapper.registerKotlinModule()
     mapper.apply {
+        registerKotlinModule()
         setDefaultPrettyPrinter(
             DefaultPrettyPrinter().apply {
                 indentArraysWith(DefaultPrettyPrinter.FixedSpaceIndenter.instance)
@@ -58,6 +58,5 @@ fun ContentNegotiation.Configuration.xml(
         )
     }
     mapper.apply(block)
-    val converter = XmlConverter(mapper)
-    register(contentType, converter)
+    register(contentType, XmlConverter(mapper))
 }

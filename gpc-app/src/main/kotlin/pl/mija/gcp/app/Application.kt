@@ -21,7 +21,7 @@ import kotlinx.css.*
 import kotlinx.html.*
 import pl.mija.gcp.app.user.userApi
 import pl.mija.gcp.app.util.mijaLogger
-import pl.mija.gcp.app.util.xml
+import pl.mija.gcp.app.util.xml.xml
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -66,11 +66,8 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(ContentNegotiation) {
-        gson {
-        }
-        xml{
-
-        }
+        gson {}
+        xml {}
     }
 
     install(Locations) {
