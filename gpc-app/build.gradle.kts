@@ -27,6 +27,11 @@ dependencies {
     implementation(Libs.Jackson.databind)
     implementation(Libs.Jackson.xml)
     implementation(Libs.Jackson.kotlin)
+//    implementation(Libs.Hibernate.validator)
+//    implementation( "jakarta.validation:jakarta.validation-api:3.0.0")
+//    implementation( "jakarta.el:jakarta.el-api:4.0.0")
+//    implementation("javax.el:javax.el-api:3.0.1")
+//    implementation( Libs.Hibernate.validator)
 
     implementation(Libs.Jetbrains.kotlinCss)
     implementation(Libs.Logback.classic)

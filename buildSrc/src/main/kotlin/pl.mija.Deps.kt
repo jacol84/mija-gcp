@@ -30,6 +30,11 @@ object Libs {
         const val kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:$version"
     }
 
+//    object Hibernate {
+//        private const val version = "7.0.1.Final"
+//        const val validator = "org.hibernate.validator:hibernate-validator:$version"
+//    }
+
     object Ktor {
         private const val version = "1.5.3"
 

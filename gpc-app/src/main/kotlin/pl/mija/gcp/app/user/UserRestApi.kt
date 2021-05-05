@@ -29,7 +29,7 @@ fun Route.userApi() {
     }
     put("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
-        val user = call.receive<User>()
+        val user = call.receive<UserEdit>()
         if (user.id == id) {
             val result = UsersController().put(id, user)
             call.respond(HttpStatusCode.Created, result)

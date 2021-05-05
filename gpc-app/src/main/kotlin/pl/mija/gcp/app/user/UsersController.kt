@@ -13,15 +13,25 @@ internal class UsersController {
     }
 
     fun create(user: UserCreate): User {
-        val element = User(id.incrementAndGet(), user.name, user.lastName)
-        mutableList.add(element)
-        return element
+        return user.mapper().also {
+            mutableList.add(it)
+        }
     }
 
-    fun put(id: Long, user: User): User {
+    fun put(id: Long, user: UserEdit): User {
         mutableList.removeIf { it.id == id }
-        mutableList.add(user)
-        return user
+
+        val validate = user.validateModel()
+        println("""
+            
+            /////////aaa
+            $validate
+            /////////aaa
+            
+            """.trimIndent())
+        return user.mapper().also {
+            mutableList.add(it)
+        }
     }
 
     fun delete(id: Long): Boolean {
@@ -29,3 +39,5 @@ internal class UsersController {
     }
 
 }
+
+

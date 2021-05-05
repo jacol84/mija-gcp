@@ -5,10 +5,18 @@ package pl.mija.gcp.app
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import pl.mija.gcp.app.user.UserEdit
+import pl.mija.gcp.app.user.validateModel
 
 class MessageUtilsTest {
     @Test
     fun testGetMessage() {
         assertEquals("Hello      World!", MessageUtils.getMessage())
+    }
+    @Test
+    fun testGetMessageXX() {
+        val userEdit = UserEdit(100L, "aaa", "bbb")
+        val validateModel = userEdit.validateModel()
+        println(validateModel)
     }
 }
