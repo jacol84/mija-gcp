@@ -1,6 +1,7 @@
 package pl.mija.gcp.app.user
 
 import pl.mija.gcp.app.util.validator.Valid
+import pl.mija.gcp.app.util.validator.validateManager
 import java.util.*
 
 internal data class UserCreate(
@@ -27,16 +28,16 @@ fun UserEdit.validateModel(): List<Valid> {
     println(name1)
     println(value)
 
-//    validateManager("UserEdit"){
-//        kProperty1.name
-//        kProperty1.get(z)
-//        required("id",id)
-////        positive("id",id)
-////        key("name"){
-////            notBlanck(id)
-////            notNull(id)
-////        }
-//    }
+    validateManager("UserEdit",this) {
+        kProperty1.name
+        kProperty1.get(z)
+        required(  UserEdit::id )
+        positive("id", id)
+        key("name") {
+            notBlanck(id)
+            notNull(id)
+        }
+    }
     return emptyList()
 }
 

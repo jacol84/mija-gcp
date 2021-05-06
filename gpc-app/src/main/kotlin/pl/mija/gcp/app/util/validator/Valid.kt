@@ -1,21 +1,26 @@
 package pl.mija.gcp.app.util.validator
 
+import kotlin.reflect.KProperty1
 
 
-fun validateManager(s: String, block: ValidManager.() -> Unit) {
-    val validManager = ValidManager(s)
+fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit) {
+    val validManager = ValidManager(s, t)
     validManager.let {
         it.block()
     }
 }
 
 
-class ValidManager(val key: String) {
-    fun required(s: String, id: Long?) {
-        TODO("Not yet implemented")
+class ValidManager<T>(val key: String, val t: T) {
+    val list: List<Valid2> = mutableListOf()
+    fun required(kProperty1: KProperty1<T, Long?>) {
+        if (kProperty1.get(t) == null) {
+            list.add(Valid2("$key.${kProperty1.name}", "valid.requires"))
+        }
     }
 }
 
+data class Valid2(val key: String, val message: String, val params: List<Any> = listOf())
 class Valid(val key: String, val field: String, val error: String)
 
 object Valids {
