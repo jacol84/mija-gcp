@@ -12,7 +12,7 @@ fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit) {
 
 
 class ValidManager<T>(val key: String, val t: T) {
-    val list: List<Valid2> = mutableListOf()
+    val list: MutableList<Valid2> = mutableListOf()
     fun required(kProperty1: KProperty1<T, Long?>) {
         if (kProperty1.get(t) == null) {
             list.add(Valid2("$key.${kProperty1.name}", "valid.requires"))
