@@ -22,18 +22,16 @@ data class UserEdit(
 }
 
 fun UserEdit.validateModel(): List<Valid2> {
-    val z = this
-    val kProperty1 = UserEdit::id
-    val name1 = kProperty1.name
-    val value = kProperty1.get(z)
-    println(name1)
-    println(value)
-
     val validateManager = validateManager("UserEdit", this) {
-        required(UserEdit::id)
-        positive(UserEdit::id)
-        required(UserEdit::name)
-        notBlank(UserEdit::name)
+        UserEdit::id.also {
+            required(it)
+            positive(it)
+        }
+        UserEdit::name.also {
+            required(it)
+            notBlank(it)
+            size(it, 2, 40)
+        }
         required(UserEdit::lastName)
         notBlank(UserEdit::lastName)
     }

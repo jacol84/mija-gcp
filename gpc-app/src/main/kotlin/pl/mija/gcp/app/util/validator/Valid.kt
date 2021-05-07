@@ -12,36 +12,21 @@ fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit): Val
 }
 
 
-class ValidManager<T>(private val key: String,private val t: T) {
+class ValidManager<T>(private val key: String, private val t: T) {
     val list: MutableList<Valid2> = mutableListOf()
-    fun required(kProperty1: KProperty1<T, Any?>) {
-        if (kProperty1.get(t) == null) {
-            addValid(kProperty1, "valid.requires")
-        }
-    }
 
-    fun positive(kProperty1: KProperty1<T, Long?>) {
-        kProperty1.get(t)?.let {
-            if (it < 0) {
-                addValid(kProperty1, "valid.positive")
-            }
-        }
-    }
+    fun required(prop: KProperty1<T, Any?>) = prop.get(t) ?: addValid(prop, "valid.requires")
 
-    fun notBlank(kProperty1: KProperty1<T, String?>) {
-        kProperty1.get(t)?.let {
-            if (it.isBlank()) {
-                addValid(kProperty1, "valid.blank")
-            }
-        }
-    }
+    fun positive(prop: KProperty1<T, Long?>) = prop.get(t)?.takeIf { it < 0 }?.let { addValid(prop, "valid.positive") }
 
-    private fun addValid(kProperty1: KProperty1<T, Any?>, message: String) {
-        list.add(Valid2("$key.${kProperty1.name}", message))
-    }
+    fun notBlank(prop: KProperty1<T, String?>) = prop.get(t)?.takeIf { it.isBlank() }?.let { addValid(prop, "valid.blank") }
+
+    fun size(prop: KProperty1<T, String?>, min: Int, max: Int) = prop.get(t)?.takeIf { it.length in min..max }?.let { addValid(prop, "valid.positive", listOf(min, max)) }
+
+    private fun addValid(prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = list.add(Valid2("$key.${prop.name}", message, params))
 }
 
-data class Valid2(val key: String, val message: String, val params: List<Any> = listOf())
+data class Valid2(val key: String, val message: String, val params: List<Any>)
 class Valid(val key: String, val field: String, val error: String)
 
 object Valids {
