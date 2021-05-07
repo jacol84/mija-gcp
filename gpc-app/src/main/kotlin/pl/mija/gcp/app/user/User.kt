@@ -1,6 +1,7 @@
 package pl.mija.gcp.app.user
 
 import pl.mija.gcp.app.util.validator.Valid
+import pl.mija.gcp.app.util.validator.Valid2
 import pl.mija.gcp.app.util.validator.validateManager
 import java.util.*
 
@@ -20,7 +21,7 @@ data class UserEdit(
     fun mapper() = User(id!!, name ?: "Name" + UUID.randomUUID(), lastName ?: "LastName" + UUID.randomUUID())
 }
 
-fun UserEdit.validateModel(): List<Valid> {
+fun UserEdit.validateModel(): List<Valid2> {
     val z = this
     val kProperty1 = UserEdit::id
     val name1 = kProperty1.name
@@ -28,17 +29,15 @@ fun UserEdit.validateModel(): List<Valid> {
     println(name1)
     println(value)
 
-    validateManager("UserEdit",this) {
-        kProperty1.name
-        kProperty1.get(z)
-        required(  UserEdit::id )
-        positive("id", id)
-        key("name") {
-            notBlanck(id)
-            notNull(id)
-        }
+    val validateManager = validateManager("UserEdit", this) {
+        required(UserEdit::id)
+        positive(UserEdit::id)
+        required(UserEdit::name)
+        notBlank(UserEdit::name)
+        required(UserEdit::lastName)
+        notBlank(UserEdit::lastName)
     }
-    return emptyList()
+    return validateManager.list
 }
 
 

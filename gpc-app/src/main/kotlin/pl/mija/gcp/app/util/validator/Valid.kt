@@ -3,20 +3,41 @@ package pl.mija.gcp.app.util.validator
 import kotlin.reflect.KProperty1
 
 
-fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit) {
+fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit): ValidManager<T> {
     val validManager = ValidManager(s, t)
     validManager.let {
         it.block()
     }
+    return validManager
 }
 
 
-class ValidManager<T>(val key: String, val t: T) {
+class ValidManager<T>(private val key: String,private val t: T) {
     val list: MutableList<Valid2> = mutableListOf()
-    fun required(kProperty1: KProperty1<T, Long?>) {
+    fun required(kProperty1: KProperty1<T, Any?>) {
         if (kProperty1.get(t) == null) {
-            list.add(Valid2("$key.${kProperty1.name}", "valid.requires"))
+            addValid(kProperty1, "valid.requires")
         }
+    }
+
+    fun positive(kProperty1: KProperty1<T, Long?>) {
+        kProperty1.get(t)?.let {
+            if (it < 0) {
+                addValid(kProperty1, "valid.positive")
+            }
+        }
+    }
+
+    fun notBlank(kProperty1: KProperty1<T, String?>) {
+        kProperty1.get(t)?.let {
+            if (it.isBlank()) {
+                addValid(kProperty1, "valid.blank")
+            }
+        }
+    }
+
+    private fun addValid(kProperty1: KProperty1<T, Any?>, message: String) {
+        list.add(Valid2("$key.${kProperty1.name}", message))
     }
 }
 
