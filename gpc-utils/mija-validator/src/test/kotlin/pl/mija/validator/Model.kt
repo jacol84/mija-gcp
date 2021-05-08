@@ -1,3 +1,3 @@
 package pl.mija.validator
 
-data class Model(var id: Long?)
+data class Model<T>(var id: T?)

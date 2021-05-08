@@ -11,7 +11,7 @@ internal class ValidKtPositiveTest {
         val model = Model(5L)
         //when
         val validate = validateManager("key", model) {
-            positive(Model::id)
+            positive(Model<Long>::id)
         }
         //then
         assertEquals(0, validate.list.size)
@@ -23,7 +23,7 @@ internal class ValidKtPositiveTest {
         val model = Model(0L)
         //when
         val validate = validateManager("key", model) {
-            positive(Model::id)
+            positive(Model<Long>::id)
         }
         //then
         assertEquals(0, validate.list.size)
@@ -32,24 +32,28 @@ internal class ValidKtPositiveTest {
     @Test
     fun testPositiveWhenIsNullThenNotErrorList() {
         //given
-        val model = Model(null)
+        val model = Model<Long>(null)
         //when
         val validate = validateManager("key", model) {
-            positive(Model::id)
+            positive(Model<Long>::id)
         }
         //then
         assertEquals(0, validate.list.size)
     }
 
     @Test
-    fun testPositiveWhenIsNotCorrectlyThenNotErrorList() {
+    fun testPositiveWhenIsNotCorrectlyThenHasErrorList() {
         //given
         val model = Model(-5L)
         //when
         val validate = validateManager("key", model) {
-            positive(Model::id)
+            positive(Model<Long>::id)
         }
         //then
+        myAssert(validate)
+    }
+
+    private fun myAssert(validate: ValidManager<Model<Long>>) {
         with(validate.list) {
             assertEquals(1, size)
             with(get(0)) {
@@ -59,6 +63,5 @@ internal class ValidKtPositiveTest {
             }
         }
     }
-
 
 }

@@ -11,32 +11,37 @@ internal class ValidKtRequiredTest {
         val model = Model(5L)
         //when
         val validate = validateManager("key", model) {
-            required(Model::id)
-        }
-        //then
-        assertEquals(0, validate.list.size)
-    }
-    @Test
-    fun testRequiredWhenIsNullThenNotErrorList() {
-        //given
-        val model = Model(-5L)
-        //when
-        val validate = validateManager("key", model) {
-            required(Model::id)
+            required(Model<Long>::id)
         }
         //then
         assertEquals(0, validate.list.size)
     }
 
     @Test
-    fun testRequiredWhenIsNotCorrectlyThenNotErrorList() {
+    fun testRequiredWhenIsNullThenNotErrorList() {
         //given
-        val model = Model(null)
+        val model = Model(-5L)
         //when
         val validate = validateManager("key", model) {
-            required(Model::id)
+            required(Model<Long>::id)
         }
         //then
+        assertEquals(0, validate.list.size)
+    }
+
+    @Test
+    fun testRequiredWhenIsNotCorrectlyThenHasErrorList() {
+        //given
+        val model = Model<Long>(null)
+        //when
+        val validate = validateManager("key", model) {
+            required(Model<Long>::id)
+        }
+        //then
+        myAssert(validate)
+    }
+
+    private fun myAssert(validate: ValidManager<Model<Long>>) {
         with(validate.list) {
             assertEquals(1, size)
             with(get(0)) {
@@ -46,9 +51,6 @@ internal class ValidKtRequiredTest {
             }
         }
     }
-
-
-
 
 }
 

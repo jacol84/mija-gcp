@@ -21,7 +21,7 @@ class ValidManager<T>(private val key: String, private val t: T) {
 
     fun notBlank(prop: KProperty1<T, String?>) = prop.get(t)?.takeIf { it.isBlank() }?.let { addValid(prop, "valid.blank") }
 
-    fun size(prop: KProperty1<T, String?>, min: Int, max: Int) = prop.get(t)?.takeIf { it.length in min..max }?.let { addValid(prop, "valid.positive", listOf(min, max)) }
+    fun size(prop: KProperty1<T, String?>, min: Int, max: Int) = prop.get(t)?.takeIf { it.length !in min..max }?.let { addValid(prop, "valid.size", listOf(min, max)) }
 
     private fun addValid(prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = list.add(Valid2("$key.${prop.name}", message, params))
 }
