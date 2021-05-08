@@ -7,13 +7,13 @@ val ktor_version = "1.5.3"
 
 plugins {
     id("pl.mija.gcp.kotlin-application-conventions")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 repositories {
     mavenCentral()
-    maven { url = uri("https://kotlin.bintray.com/ktor") }
-    maven { url = uri("https://kotlin.bintray.com/kotlin-js-wrappers") }
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
+    maven { setUrl("https://kotlin.bintray.com/ktor") }
+    maven { setUrl("https://kotlin.bintray.com/kotlin-js-wrappers") }
+    maven { setUrl("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
 }
 dependencies {
     implementation(Libs.Apache.commonsText)
@@ -36,6 +36,7 @@ dependencies {
     implementation(Libs.Jetbrains.kotlinCss)
     implementation(Libs.Logback.classic)
     implementation(project(":gpc-utilities"))
+    implementation(project(":gpc-utils:mija-validator"))
     implementation(kotlin("stdlib-jdk8"))
 }
 

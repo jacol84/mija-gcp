@@ -1,5 +1,9 @@
-object Plugin {
+object MyPlugin {
     const val kotlinVersion = "kotlin-1.2.41" //??
+
+    object Id{
+        const val library = "pl.mija.gcp.kotlin-library-conventions"
+    }
 }
 
 object Libs {

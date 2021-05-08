@@ -3,7 +3,7 @@
  */
 
 plugins {
-    id("pl.mija.gcp.kotlin-library-conventions")
+    id(MyPlugin.Id.library)
 }
 
 dependencies {
