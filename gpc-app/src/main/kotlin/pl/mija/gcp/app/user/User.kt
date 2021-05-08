@@ -1,8 +1,8 @@
 package pl.mija.gcp.app.user
 
-import pl.mija.gcp.app.util.validator.Valid
-import pl.mija.gcp.app.util.validator.Valid2
-import pl.mija.gcp.app.util.validator.validateManager
+
+import pl.mija.validator.Valid2
+import pl.mija.validator.validateManager
 import java.util.*
 
 internal data class UserCreate(

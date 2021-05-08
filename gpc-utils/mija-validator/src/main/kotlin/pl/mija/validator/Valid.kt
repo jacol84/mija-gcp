@@ -1,4 +1,4 @@
-package pl.mija.gcp.app.util.validator
+package pl.mija.validator
 
 import kotlin.reflect.KProperty1
 
@@ -15,7 +15,7 @@ fun <T> validateManager(s: String, t: T, block: ValidManager<T>.() -> Unit): Val
 class ValidManager<T>(private val key: String, private val t: T) {
     val list: MutableList<Valid2> = mutableListOf()
 
-    fun required(prop: KProperty1<T, Any?>) = prop.get(t) ?: addValid(prop, "valid.requires")
+    fun required(prop: KProperty1<T, Any?>) = prop.get(t) ?: addValid(prop, "valid.required")
 
     fun positive(prop: KProperty1<T, Long?>) = prop.get(t)?.takeIf { it < 0 }?.let { addValid(prop, "valid.positive") }
 
