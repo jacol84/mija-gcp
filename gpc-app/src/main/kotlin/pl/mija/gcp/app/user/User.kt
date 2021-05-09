@@ -12,7 +12,6 @@ internal data class UserCreate(
     fun mapper() = User(id.incrementAndGet(), name ?: "Name" + UUID.randomUUID(), lastName ?: "LastName" + UUID.randomUUID())
 }
 
-
 data class UserEdit(
     val id: Long?,
     val name: String?,

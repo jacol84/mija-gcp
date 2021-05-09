@@ -1,5 +1,6 @@
 package pl.mija.validator
 
+import kotlin.math.sign
 import kotlin.reflect.KProperty1
 
 
@@ -17,7 +18,7 @@ class ValidManager<T>(private val key: String, private val t: T) {
 
     fun required(prop: KProperty1<T, Any?>) = prop.get(t) ?: addValid(prop, "valid.required")
 
-    fun positive(prop: KProperty1<T, Long?>) = prop.get(t)?.takeIf { it < 0 }?.let { addValid(prop, "valid.positive") }
+    fun positive(prop: KProperty1<T, Number?>) = prop.get(t)?.takeIf {  (it is Long && it.sign < 0) || it.toDouble() < 0 }?.let { addValid(prop, "valid.positive") }
 
     fun notBlank(prop: KProperty1<T, String?>) = prop.get(t)?.takeIf { it.isBlank() }?.let { addValid(prop, "valid.blank") }
 

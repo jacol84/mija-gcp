@@ -45,6 +45,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(CORS) {
+
         method(HttpMethod.Options)
         method(HttpMethod.Get)
         method(HttpMethod.Post)
@@ -57,7 +58,6 @@ fun Application.module(testing: Boolean = false) {
         header(HttpHeaders.AccessControlAllowOrigin)
 
         allowCredentials = true
-        anyHost()
         maxAgeInSeconds = Duration.ofDays(1).toSeconds()
 
         header("MyCustomHeader")

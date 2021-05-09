@@ -30,6 +30,30 @@ internal class ValidKtPositiveTest {
     }
 
     @Test
+    fun testPositiveWhenIsDoubleThenNotErrorList() {
+        //given
+        val model = Model(0.1)
+        //when
+        val validate = validateManager("key", model) {
+            positive(Model<Double>::id)
+        }
+        //then
+        assertEquals(0, validate.list.size)
+    }
+
+    @Test
+    fun testPositiveWhenIsFloatThenNotErrorList() {
+        //given
+        val model = Model(0.1f)
+        //when
+        val validate = validateManager("key", model) {
+            positive(Model<Float>::id)
+        }
+        //then
+        assertEquals(0, validate.list.size)
+    }
+
+    @Test
     fun testPositiveWhenIsNullThenNotErrorList() {
         //given
         val model = Model<Long>(null)
@@ -53,7 +77,19 @@ internal class ValidKtPositiveTest {
         myAssert(validate)
     }
 
-    private fun myAssert(validate: ValidManager<Model<Long>>) {
+    @Test
+    fun testPositiveWhenIsMinusZeroThenHasErrorList() {
+        //given
+        val model = Model(-0.0000000000000000001)
+        //when
+        val validate = validateManager("key", model) {
+            positive(Model<Double>::id)
+        }
+        //then
+        myAssert(validate)
+    }
+
+    private fun <U> myAssert(validate: ValidManager<Model<U>>) {
         with(validate.list) {
             assertEquals(1, size)
             with(get(0)) {
@@ -63,5 +99,6 @@ internal class ValidKtPositiveTest {
             }
         }
     }
+
 
 }
