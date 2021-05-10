@@ -5,18 +5,17 @@ import pl.mija.validator.Valid2
 import pl.mija.validator.validateManager
 import java.util.*
 
-@JvmInline
-inline value class Password(private val s: String){
-    fun xxx(): String {
-        return s
-    }
-}
+//@JvmInline
+//inline value class Password(private val s: String){
+//    fun xxx(): String {
+//        return s
+//    }
+//}
 
 
 internal data class UserCreate(
     val name: String?,
-    val lastName: String?,
-    val password: Password
+    val lastName: String?
 ) {
     fun mapper() = User(id.incrementAndGet(), name ?: "Name" + UUID.randomUUID(), lastName ?: "LastName" + UUID.randomUUID())
 }
@@ -30,7 +29,6 @@ data class UserEdit(
 }
 
 fun UserEdit.validateModel(): List<Valid2> {
-    val userCreate = UserCreate("na", "z", Password("aaa"))
     val validateManager = validateManager("UserEdit", this) {
         UserEdit::id.also {
             required(it)
