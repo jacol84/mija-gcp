@@ -19,7 +19,6 @@ internal class ValidXKtTest {
         //given
         val model = ModelX(null, "string")
         //when
-        //and
         val list = validate.valid("key", model)
         //then
         myAssert(list)
