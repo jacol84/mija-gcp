@@ -8,9 +8,9 @@ import kotlin.test.assertEquals
 object ModelYValid {
     val valid =
         validateManagerY<ModelY> {
-            prop(ModelY::id).vIsPositive()
+            prop(ModelY::id).positive()
             with(prop(ModelY::s)) {
-                vIsRequire()
+                require()
             }
         }
 }
@@ -45,7 +45,22 @@ internal class ValidYKtTest {
         val model = ModelY(0L, "string")
         //and
         val valid = validateManagerY<ModelY> {
-            prop(ModelY::id).vIsNotZero()
+            prop(ModelY::id).onlyZero()
+        }
+        //when
+        val list = valid.valid("key", model)
+        //then
+//        println(list[0].message)
+        assertEquals(0, list.size)
+    }
+
+    @Test
+    fun testCustomValidWhenIsNotCorrectedDataThenErrorList() {
+        //given
+        val model = ModelY(0L, "string")
+        //and
+        val valid = validateManagerY<ModelY> {
+            prop(ModelY::id).onlyZero()
         }
         //when
         val list = valid.valid("key", model)
@@ -55,7 +70,7 @@ internal class ValidYKtTest {
     }
 }
 
-fun <T, Long> ValidManagerY<T>.Prop<Long>.vIsNotZero() =
+fun <T, Long> ValidManagerY<T>.Prop<Long>.onlyZero() =
     add { t: T, key: String -> prop.get(t).let { if (it != 0L) addValid(key, prop, "valid.my") else null } }
 
 data class ModelY(val id: Long?, val s: String?)

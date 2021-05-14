@@ -26,10 +26,10 @@ class ValidManagerY<T> {
     }
 }
 
-fun <T, U : Number> ValidManagerY<T>.Prop<U>.vIsPositive() =
+fun <T, U : Number> ValidManagerY<T>.Prop<U>.positive() =
     add { t: T, key: String -> prop.get(t)?.let { if ((it is Long && it.sign < 0) || it.toDouble() < 0) addValid(key, prop, "valid.isNotPositive") else null } }
 
-fun <T, U : Any> ValidManagerY<T>.Prop<U>.vIsRequire() =
+fun <T, U : Any> ValidManagerY<T>.Prop<U>.require() =
     add { t: T, key: String -> prop.get(t).let { if (it == null) addValid(key, prop, "valid.required") else null } }
 
 fun <T> addValid(key: String, prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = ValidY("$key.${prop.name}", message, params)
