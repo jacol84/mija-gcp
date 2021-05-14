@@ -1,10 +1,20 @@
 package pl.mija.validator.y
 
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import pl.mija.validator.ValidManagerY
-import pl.mija.validator.vIsPositive
-import pl.mija.validator.validateManagerY
+import pl.mija.validator.*
+import pl.mija.validator.y.ModelYValid.valid
+import kotlin.test.assertEquals
+
+object ModelYValid {
+    val valid =
+        validateManagerY<ModelY> {
+            prop(ModelY::id).vIsPositive()
+            with(prop(ModelY::s)) {
+                vIsRequire()
+            }
+        }
+}
+
 
 internal class ValidYKtTest {
     @Test
@@ -12,16 +22,40 @@ internal class ValidYKtTest {
         //given
         val model = ModelY(null, "string")
         //when
-        val valid = validateManagerY<ModelY> {
-            prop(ModelY::id).vIsPositive()
-            with(prop(ModelY::s)) {
-//                vIsRe()
-            }
-        }
+        val list = valid.valid("key", model)
         //then
-        assertNotNull(valid)
+        assertEquals(0, list.size)
+    }
+
+    @Test
+    fun testRequiredWhenIsNotCorrectedDataThenErrorList() {
+        //given
+        val model = ModelY(-1L, null)
+        //when
+        val list = valid.valid("key", model)
+        //then
+        assertEquals(2, list.size)
+        assertEquals("valid.isNotPositive", list[0].message)
+        assertEquals("valid.required", list[1].message)
+    }
+
+    @Test
+    fun testCustomValidWhenIsCorrectedDataThenNotErrorList() {
+        //given
+        val model = ModelY(0L, "string")
+        //and
+        val valid = validateManagerY<ModelY> {
+            prop(ModelY::id).vIsNotZero()
+        }
+        //when
+        val list = valid.valid("key", model)
+        //then
+//        println(list[0].message)
+        assertEquals(0, list.size)
     }
 }
 
+fun <T, Long> ValidManagerY<T>.Prop<Long>.vIsNotZero() =
+    add { t: T, key: String -> prop.get(t).let { if (it != 0L) addValid(key, prop, "valid.my") else null } }
 
-data class ModelY(val id: Long?, val s: String)
+data class ModelY(val id: Long?, val s: String?)

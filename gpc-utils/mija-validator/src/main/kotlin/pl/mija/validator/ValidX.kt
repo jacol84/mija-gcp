@@ -13,8 +13,7 @@ fun <T> validateManagerX(block: ValidManagerX<T>.() -> Unit): ValidManagerX<T> {
 }
 
 
-class ValidManagerX<T>() {
-
+class ValidManagerX<T> {
     val blocks = mutableListOf<(T, key: String) -> ValidX?>()
     fun valid(key: String, model: T): List<ValidX> {
         return blocks.mapNotNull { it(model, key) }

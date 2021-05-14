@@ -12,23 +12,27 @@ fun <T> validateManagerY(block: ValidManagerY<T>.() -> Unit): ValidManagerY<T> {
 
 
 class ValidManagerY<T> {
-    lateinit var list: List<ValidY>
-    val blocks = mutableListOf<(T, key: String) -> ValidY?>()
-    fun <U> prop(prop: KProperty1<T, U?>): ValidManagerY<T>.Prop<T, U> = Prop(prop)
+    private val blocks = mutableListOf<(T, key: String) -> ValidY?>()
+    fun <U> prop(prop: KProperty1<T, U?>): ValidManagerY<T>.Prop<U> = Prop(prop)
 
-    inner class Prop<T, U>(val prop: KProperty1<T, U?>) {
-
+    inner class Prop<U>(val prop: KProperty1<T, U?>) {
+        fun add(block: ((T, key: String) -> ValidY?)) {
+            blocks.add(block)
+        }
     }
 
-    fun <U : Number> ValidManagerY<T>.Prop<T, U>.vIsPositive() {
-        blocks.add { t: T, key: String -> prop.get(t).let { if (it == null) addValid(key, prop, "valid.required") else null } }
+    fun valid(key: String, model: T): List<ValidY> {
+        return blocks.mapNotNull { it(model, key) }
     }
-    fun <T> addValid(key: String, prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = ValidY("$key.${prop.name}", message, params)
 }
 
+fun <T, U : Number> ValidManagerY<T>.Prop<U>.vIsPositive() =
+    add { t: T, key: String -> prop.get(t)?.let { if ((it is Long && it.sign < 0) || it.toDouble() < 0) addValid(key, prop, "valid.isNotPositive") else null } }
 
+fun <T, U : Any> ValidManagerY<T>.Prop<U>.vIsRequire() =
+    add { t: T, key: String -> prop.get(t).let { if (it == null) addValid(key, prop, "valid.required") else null } }
 
-
+fun <T> addValid(key: String, prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = ValidY("$key.${prop.name}", message, params)
 
 data class ValidY(val key: String, val message: String, val params: List<Any>)
 
