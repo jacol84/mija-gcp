@@ -112,7 +112,7 @@ internal class ValidKtPositiveTest {
             assertEquals(1, size)
             with(get(0)) {
                 assertEquals("key.id", key)
-                assertEquals("valid.positive", message)
+                assertEquals("valid.isNotPositive", message)
                 assertEquals(emptyList<Any>(), params)
             }
         }
