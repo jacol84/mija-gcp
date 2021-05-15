@@ -26,13 +26,25 @@ class ValidManagerY<T> {
     }
 }
 
-fun <T, U : Number> ValidManagerY<T>.Prop<U>.positive() =
-    add { t: T, key: String -> prop.get(t)?.let { if ((it is Long && it.sign < 0) || it.toDouble() < 0) addValid(key, prop, "valid.isNotPositive") else null } }
+fun <T, U : Number?> ValidManagerY<T>.Prop<U>.positive() =
+    add { t: T, key: String -> prop.get(t)?.let { if ((it is Long && it.sign < 0) || it.toDouble() < 0) createValid(key, prop, "valid.isNotPositive") else null } }
 
-fun <T, U : Any> ValidManagerY<T>.Prop<U>.require() =
-    add { t: T, key: String -> prop.get(t).let { if (it == null) addValid(key, prop, "valid.required") else null } }
+fun <T, U : Any?> ValidManagerY<T>.Prop<U>.require() =
+    add { t: T, key: String -> prop.get(t).let { if (it == null) createValid(key, prop, "valid.required") else null } }
 
-fun <T> addValid(key: String, prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = ValidY("$key.${prop.name}", message, params)
+fun <T, U : String?> ValidManagerY<T>.Prop<U>.notBlank() =
+    add { t: T, key: String -> prop.get(t)?.takeIf { it.isBlank() }?.let { createValid(key, prop, "valid.blank") } }
+
+fun <T, U : String?> ValidManagerY<T>.Prop<U>.size(min: Int=0, max: Int=Int.MAX_VALUE) =
+    add { t: T, key: String -> prop.get(t)?.takeIf { it.length !in min..max }?.let { createValid(key, prop, "valid.size", listOf(min, max)) } }
+
+
+
+//fun notBlank(prop: KProperty1<T, String?>) = prop.get(t)?.takeIf { it.isBlank() }?.let { createValid(prop, "valid.blank") }
+//
+//fun size(prop: KProperty1<T, String?>, min: Int, max: Int) = prop.get(t)?.takeIf { it.length !in min..max }?.let { createValid(prop, "valid.size", listOf(min, max)) }
+
+fun <T> createValid(key: String, prop: KProperty1<T, Any?>, message: String, params: List<Any> = listOf()) = ValidY("$key.${prop.name}", message, params)
 
 data class ValidY(val key: String, val message: String, val params: List<Any>)
 
