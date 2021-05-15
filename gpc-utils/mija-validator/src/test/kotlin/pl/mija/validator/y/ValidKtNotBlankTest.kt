@@ -2,7 +2,6 @@ package pl.mija.validator.y
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.platform.commons.util.Preconditions.notBlank
 import pl.mija.validator.Model
 import pl.mija.validator.ValidY
 import pl.mija.validator.notBlank
@@ -94,7 +93,7 @@ internal class ValidKtNotBlankTest {
         myAssert(list)
     }
 
-    private fun myAssert(list:List<ValidY>) {
+    private fun myAssert(list: List<ValidY>) {
         with(list) {
             assertEquals(1, size)
             with(get(0)) {

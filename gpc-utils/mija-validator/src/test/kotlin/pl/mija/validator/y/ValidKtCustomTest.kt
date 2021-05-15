@@ -9,6 +9,13 @@ internal class ValidKtCustomTest {
 
     data class ModelY(val id: Long?, val s: String?)
 
+    private fun <T, Long> ValidManagerY<T>.Prop<Long>.onlyZero() =
+        add { t: T, key: String ->
+            prop.get(t).let {
+                if (it != 0L) createValid(key, prop, "valid.my") else null
+            }
+        }
+
     @Test
     fun testCustomValidWhenIsCorrectedDataThenNotErrorList() {
         //given
@@ -45,12 +52,7 @@ internal class ValidKtCustomTest {
         }
     }
 
-    private fun <T, Long> ValidManagerY<T>.Prop<Long>.onlyZero() =
-        add { t: T, key: String ->
-            prop.get(t).let {
-                if (it != 0L) createValid(key, prop, "valid.my") else null
-            }
-        }
+
 }
 
 

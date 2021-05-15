@@ -1,5 +1,6 @@
 package pl.mija.validator.y
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import pl.mija.validator.*
 import kotlin.test.assertEquals
@@ -36,9 +37,19 @@ internal class ValidKtMoreValueTest {
         //when
         val list = ModelYValid.valid.valid("key", model)
         //then
-        assertEquals(2, list.size)
-        assertEquals("valid.isNotPositive", list[0].message)
-        assertEquals("valid.required", list[1].message)
+        with(list) {
+            Assertions.assertEquals(2, size)
+            with(get(0)) {
+                Assertions.assertEquals("key.id", key)
+                Assertions.assertEquals("valid.isNotPositive", message)
+                Assertions.assertEquals(emptyList<Any>(), params)
+            }
+            with(get(1)) {
+                Assertions.assertEquals("key.s", key)
+                Assertions.assertEquals("valid.required", message)
+                Assertions.assertEquals(emptyList<Any>(), params)
+            }
+        }
     }
 
 }
