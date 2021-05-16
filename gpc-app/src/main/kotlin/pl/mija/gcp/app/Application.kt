@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.css.*
 import kotlinx.html.*
+import org.slf4j.event.Level
 import pl.mija.gcp.app.user.userApi
 import pl.mija.gcp.app.util.mijaLogger
 import pl.mija.gcp.app.util.xml.xml
@@ -43,7 +44,9 @@ fun Application.module(testing: Boolean = false) {
     runBlocking {
         cos()
     }
-
+    install(CallLogging){
+        level = Level.TRACE
+    }
     install(CORS) {
 
         method(HttpMethod.Options)
@@ -143,6 +146,7 @@ fun Application.module(testing: Boolean = false) {
         }
 
         get("/json/gson") {
+//            call.response.
             call.respond(
                 mapOf(
                     "hello" to "world",
