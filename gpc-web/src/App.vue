@@ -3,18 +3,23 @@
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
 
   <MyForm/>
+
+
+  <UserForm/>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import MyForm from './components/MyForm.vue'
+import UserForm from './components/UserForm.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
     HelloWorld,
-    MyForm
+    MyForm,
+    UserForm
   }
 })
 </script>
