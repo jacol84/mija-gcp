@@ -9,14 +9,16 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import MyForm from './components/MyForm.vue'
 import UserForm from './components/UserForm.vue'
-
+import { ConfigProvider } from 'ant-design-vue';
 export default defineComponent({
   name: 'App',
   components: {
+    ConfigProvider,
     HelloWorld,
     MyForm,
     UserForm
