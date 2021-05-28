@@ -32,10 +32,12 @@
 </template>
 <script lang="ts">
 
-import {UserOutlined, LockOutlined} from '@ant-design/icons-vue';
+import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
+// import {Button as AButton, Form as AForm, Input as AInput} from 'ant-design-vue';
+
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
 import {defineComponent, reactive, UnwrapRef} from 'vue';
-import {Form, Row} from 'ant-design-vue';
+import {AButton, AForm, AFormItem, AInput} from "/@/components/antd";
 // import {registerGlobComp} from "/@/components/registerGlobComp";
 // registerGlobComp([Form,Row])
 interface FormState {
@@ -46,11 +48,16 @@ interface FormState {
   password: string;
 }
 
+
 export default defineComponent({
   name: 'BasicForm',
   components: {
     UserOutlined,
     LockOutlined,
+    AButton,
+    AInput,
+    AForm,
+    AFormItem,
   },
   setup() {
     const formState: UnwrapRef<FormState> = reactive({
