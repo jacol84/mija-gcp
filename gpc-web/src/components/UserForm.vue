@@ -6,6 +6,9 @@
       @finishFailed="handleFinishFailed"
   >
     <a-form-item>
+      <a-date-picker v-model:value="value1" :locale="locale"/>
+    </a-form-item>
+    <a-form-item>
       <a-input v-model:value="formState.user" placeholder="Username">
         <template #prefix>
           <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
@@ -34,12 +37,15 @@
 
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
 // import {Button as AButton, Form as AForm, Input as AInput} from 'ant-design-vue';
-
+import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
 import {defineComponent, reactive, UnwrapRef} from 'vue';
-import {AButton, AForm, AFormItem, AInput} from "/@/components/antd";
+import {AButton, AForm, AFormItem, AInput, ADatePicker} from "/@/components/antd";
 // import {registerGlobComp} from "/@/components/registerGlobComp";
 // registerGlobComp([Form,Row])
+
+import 'moment/dist/locale/pl';
+
 interface FormState {
   user: string;
   userA: string;
@@ -58,6 +64,7 @@ export default defineComponent({
     AInput,
     AForm,
     AFormItem,
+    ADatePicker,
   },
   setup() {
     const formState: UnwrapRef<FormState> = reactive({
@@ -66,6 +73,7 @@ export default defineComponent({
       userB: '',
       userC: '',
       password: '',
+      value1:null,
     });
     const handleFinish = (values: FormState) => {
       console.log(values, formState);
@@ -77,6 +85,7 @@ export default defineComponent({
       formState,
       handleFinish,
       handleFinishFailed,
+      locale
     };
   },
 });

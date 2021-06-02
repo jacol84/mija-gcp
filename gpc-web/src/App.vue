@@ -1,20 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png"/>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
-
-  <MyForm/>
-
-
-  <UserForm/>
+  <ConfigProvider :locale="locale">
+    <img alt="Vue logo" src="./assets/logo.png"/>
+    <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
+    <MyForm/>
+    <UserForm/>
+  </ConfigProvider>
 </template>
 
 <script lang="ts">
-
+import plPL from 'ant-design-vue/es/locale/pl_PL';
 import {defineComponent} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import MyForm from './components/MyForm.vue'
 import UserForm from './components/UserForm.vue'
-import { ConfigProvider } from 'ant-design-vue';
+import {ConfigProvider} from 'ant-design-vue';
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -22,7 +22,15 @@ export default defineComponent({
     HelloWorld,
     MyForm,
     UserForm
-  }
+  },
+  setup() {
+    // // useTitle();
+    //
+    // // support Multi-language
+    // const { getAntdLocale } = useLocale();
+
+    return { locale:plPL };
+  },
 })
 </script>
 
