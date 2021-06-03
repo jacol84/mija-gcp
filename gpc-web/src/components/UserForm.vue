@@ -6,10 +6,10 @@
       @finishFailed="handleFinishFailed"
   >
     <a-form-item>
-      <a-date-picker v-model:value="value1" :locale="locale"/>
+      <a-date-picker v-model:value="formState.aDate" />
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formState.user" placeholder="Username">
+      <a-input v-model:value="formState.user" :placeholder="t('user.user.userName')">
         <template #prefix>
           <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
         </template>
@@ -33,18 +33,20 @@
     </a-form-item>
   </a-form>
 </template>
+
+
 <script lang="ts">
 
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
-// import {Button as AButton, Form as AForm, Input as AInput} from 'ant-design-vue';
 import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
 import {defineComponent, reactive, UnwrapRef} from 'vue';
-import {AButton, AForm, AFormItem, AInput, ADatePicker} from "/@/components/antd";
-// import {registerGlobComp} from "/@/components/registerGlobComp";
-// registerGlobComp([Form,Row])
+import {AButton, ADatePicker, AForm, AFormItem, AInput} from "/@/components/antd";
+import Moment from 'moment'
 
 import 'moment/dist/locale/pl';
+import {useI18n} from "/@/hooks/useI18n";
+
 
 interface FormState {
   user: string;
@@ -52,6 +54,7 @@ interface FormState {
   userB: string;
   userC: string;
   password: string;
+  aDate: Moment
 }
 
 
@@ -67,13 +70,11 @@ export default defineComponent({
     ADatePicker,
   },
   setup() {
+    const { t } = useI18n();
     const formState: UnwrapRef<FormState> = reactive({
       user: '',
-      userA: '',
-      userB: '',
-      userC: '',
       password: '',
-      value1:null,
+      aDate: Moment(1622725402000),
     });
     const handleFinish = (values: FormState) => {
       console.log(values, formState);
@@ -82,6 +83,7 @@ export default defineComponent({
       console.log(errors);
     };
     return {
+      t,
       formState,
       handleFinish,
       handleFinishFailed,

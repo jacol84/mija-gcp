@@ -27,5 +27,16 @@ export default defineConfig({
         //     }
         // ]),
         // antdViteImportPlugin(),
-    ]
+    ],
+    optimizeDeps: {
+        // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
+        include: [
+            // '@iconify/iconify',
+            'ant-design-vue/es/locale/pl_PL',
+            'moment/dist/locale/pl',
+            'ant-design-vue/es/locale/en_US',
+            'moment/dist/locale/eu',
+        ],
+        exclude: ['vue-demi'],
+    },
 })
