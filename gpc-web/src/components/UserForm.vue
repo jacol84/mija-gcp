@@ -6,7 +6,7 @@
       @finishFailed="handleFinishFailed"
   >
     <a-form-item>
-      <a-date-picker v-model:value="formState.aDate" />
+      <a-date-picker v-model:value="formState.aDate"/>
     </a-form-item>
     <a-form-item>
       <a-input v-model:value="formState.user" :placeholder="t('user.user.userName')">
@@ -42,7 +42,7 @@ import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
 import {defineComponent, reactive, UnwrapRef} from 'vue';
 import {AButton, ADatePicker, AForm, AFormItem, AInput} from "/@/components/antd";
-import Moment from 'moment'
+import moment, {Moment} from 'moment';
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
@@ -50,11 +50,8 @@ import {useI18n} from "/@/hooks/useI18n";
 
 interface FormState {
   user: string;
-  userA: string;
-  userB: string;
-  userC: string;
   password: string;
-  aDate: Moment
+  aDate: Moment;
 }
 
 
@@ -70,11 +67,11 @@ export default defineComponent({
     ADatePicker,
   },
   setup() {
-    const { t } = useI18n();
+    const {t} = useI18n();
     const formState: UnwrapRef<FormState> = reactive({
       user: '',
       password: '',
-      aDate: Moment(1622725402000),
+      aDate: moment(1622725402000),
     });
     const handleFinish = (values: FormState) => {
       console.log(values, formState);
