@@ -42,18 +42,11 @@ import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
 import {defineComponent, reactive, UnwrapRef} from 'vue';
 import {AButton, ADatePicker, AForm, AFormItem, AInput} from "/@/components/antd";
-import moment, {Moment} from 'moment';
+import moment from 'moment';
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
-
-
-interface FormState {
-  user: string;
-  password: string;
-  aDate: Moment;
-}
-
+import {FormState} from "/@/view/user/UserForm";
 
 export default defineComponent({
   name: 'BasicForm',
