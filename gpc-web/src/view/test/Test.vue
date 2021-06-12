@@ -2,7 +2,6 @@
   <AButton v-on:click="formState.test=!formState.test"> BUTTON</AButton>
   <h1 v-if="formState.test">Vue is awesome! {{ formState.test }}</h1>
   <UserFormXXX v-if="formState.test"></UserFormXXX>
-  <Spin></Spin>
 </template>
 
 <script lang="ts">
@@ -22,7 +21,6 @@ export default defineComponent({
   components: {
     UserFormXXX: createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue')),
     AButton,
-    Spin,
   },
   setup() {
     const formState: UnwrapRef<StateModel> = reactive({
