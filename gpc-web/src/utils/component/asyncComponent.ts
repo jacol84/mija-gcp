@@ -19,9 +19,8 @@ export function createAsyncComponent(loader: Fn, options: Options = {}) {
         onError: !retry
             ? noop
             : (error, retry, fail, attempts) => {
-                //TODO
-                retry()
                 console.error(error);
+                retry()
             },
     });
 }

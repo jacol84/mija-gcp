@@ -46,7 +46,7 @@ import moment from 'moment';
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
-import {FormState} from "/@/view/user/UserForm";
+import {FormState} from "/@/view/user/index";
 
 export default defineComponent({
   name: 'BasicForm',
