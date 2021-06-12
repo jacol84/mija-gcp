@@ -16,7 +16,7 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formState.password" type="password" placeholder="Password">
+      <a-input v-model:value="formState.password" type="password" :placeholder="t('user.user.userName')">
         <template #prefix>
           <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
         </template>

@@ -1,6 +1,7 @@
 <template>
   <ConfigProvider :locale="locale">
     <img alt="Vue logo" src="./assets/logo.png"/>
+    <Test/>
     <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
     <MyForm/>
     <UserForm/>
@@ -9,11 +10,12 @@
 
 <script lang="ts">
 import plPL from 'ant-design-vue/es/locale/pl_PL';
-import {defineComponent} from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import MyForm from './components/MyForm.vue'
-import UserForm from './components/UserForm.vue'
+import {defineComponent, defineAsyncComponent } from 'vue'
 import {ConfigProvider} from 'ant-design-vue';
+import HelloWorld from '/@/components/HelloWorld.vue'
+import MyForm from '/@/components/MyForm.vue'
+import UserForm from '/@/view/user/UserForm.vue'
+import Test from '/@/view/test/Test.vue'
 
 export default defineComponent({
   name: 'App',
@@ -21,13 +23,12 @@ export default defineComponent({
     ConfigProvider,
     HelloWorld,
     MyForm,
-    UserForm
+    UserForm,
+    Test
   },
   setup() {
-    // // useTitle();
-    //
-    // // support Multi-language
-    // const { getAntdLocale } = useLocale();
+
+    let xxx = ()=>import("/@/components/MyForm.vue")
 
     return { locale:plPL };
   },
