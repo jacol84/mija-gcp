@@ -1,6 +1,11 @@
 <template>
   <AButton v-on:click="formState.test=!formState.test"> BUTTON</AButton>
+  <AButton v-on:click="onClick"> BUTTON</AButton>
+  <AButton v-on:click="diff"> BUTTON</AButton>
   <h1 v-if="formState.test">Vue is awesome! {{ formState.test }}</h1>
+  <h2>Vue is awesome! {{ myData }}</h2>
+  <h2 v-if="formState.test">Vue is awesome! {{ myCom }}</h2>
+  <input v-model="myData"/>
   <UserFormXXX v-if="formState.test"></UserFormXXX>
   <UserList></UserList>
 </template>
@@ -16,18 +21,32 @@ interface StateModel {
   test: boolean
 }
 
-export default defineComponent({
+const test = defineComponent({
   name: "Test",
   components: {
     UserFormXXX: createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue')),
     AButton,
-    UserList
+    UserList,
+  },
+  data() {
+    return {
+      myData: "Jacek",
+    };
+  },
+  computed: {
+    myCom: () => "jacek" + new Date()
+  },
+  methods: {
+    diff: function () {
+      console.log(this.$data.myData)
+    }
   },
   setup() {
     const formState: UnwrapRef<StateModel> = reactive({
       test: false
     });
-    const onClick = (values: StateModel) => {
+    const me = this;
+    const onClick = function (values: StateModel) {
       console.log(values, formState);
     };
     return {
@@ -37,6 +56,8 @@ export default defineComponent({
   },
 })
 
+
+export default test
 </script>
 
 <style scoped>
