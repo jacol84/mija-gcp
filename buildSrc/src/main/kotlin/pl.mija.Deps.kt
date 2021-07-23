@@ -16,7 +16,7 @@ object Libs {
     }
 
     object Jetbrains {
-        const val kotlinCss = "org.jetbrains:kotlin-css-jvm:1.0.0-pre.31-kotlin-1.2.41"
+//        const val kotlinCss = "org.jetbrains:kotlin-css-jvm:1.0.0-pre.31-kotlin-1.2.41"
         const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom"
         const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     }

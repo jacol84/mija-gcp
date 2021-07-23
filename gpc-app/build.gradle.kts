@@ -29,7 +29,7 @@ dependencies {
     implementation(Libs.Jackson.xml)
     implementation(Libs.Jackson.kotlin)
 
-    implementation(Libs.Jetbrains.kotlinCss)
+//    implementation(Libs.Jetbrains.kotlinCss)
     implementation(Libs.Logback.classic)
     implementation(project(":gpc-utilities"))
     implementation(project(":gpc-utils:mija-validator"))

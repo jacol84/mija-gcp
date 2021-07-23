@@ -17,7 +17,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.css.*
+//import kotlinx.css.*
 import kotlinx.html.*
 import org.slf4j.event.Level
 import pl.mija.gcp.app.user.userApi
@@ -126,19 +126,19 @@ fun Application.module(testing: Boolean = false) {
             }
         }
 
-        get("/styles.css") {
-            call.respondCss {
-                body {
-                    backgroundColor = Color.red
-                }
-                p {
-                    fontSize = 2.em
-                }
-                rule("p.myclass") {
-                    color = Color.blue
-                }
-            }
-        }
+//        get("/styles.css") {
+//            call.respondCss {
+//                body {
+//                    backgroundColor = Color.red
+//                }
+//                p {
+//                    fontSize = 2.em
+//                }
+//                rule("p.myclass") {
+//                    color = Color.blue
+//                }
+//            }
+//        }
 
         // Static feature. Try to access `/static/ktor_logo.svg`
         static("/static") {
@@ -238,16 +238,16 @@ data class Type(val name: String) {
 
 data class MySession(val count: Int = 0)
 
-fun FlowOrMetaDataContent.styleCss(builder: CSSBuilder.() -> Unit) {
-    style(type = ContentType.Text.CSS.toString()) {
-        +CSSBuilder().apply(builder).toString()
-    }
-}
-
-fun CommonAttributeGroupFacade.style(builder: CSSBuilder.() -> Unit) {
-    this.style = CSSBuilder().apply(builder).toString().trim()
-}
-
-suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
-}
+//fun FlowOrMetaDataContent.styleCss(builder: CSSBuilder.() -> Unit) {
+//    style(type = ContentType.Text.CSS.toString()) {
+//        +CSSBuilder().apply(builder).toString()
+//    }
+//}
+//
+//fun CommonAttributeGroupFacade.style(builder: CSSBuilder.() -> Unit) {
+//    this.style = CSSBuilder().apply(builder).toString().trim()
+//}
+//
+//suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
+//    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
+//}

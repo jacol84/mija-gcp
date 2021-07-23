@@ -1,12 +1,12 @@
 <template>
-  <AButton v-on:click="formState.test=!formState.test"> BUTTON</AButton>
-  <AButton v-on:click="onClick"> BUTTON</AButton>
-  <AButton v-on:click="diff"> BUTTON</AButton>
-  <h1 v-if="formState.test">Vue is awesome! {{ formState.test }}</h1>
-  <h2>Vue is awesome! {{ myData }}</h2>
-  <h2 v-if="formState.test">Vue is awesome! {{ myCom }}</h2>
-  <input v-model="myData"/>
-  <UserFormXXX v-if="formState.test"></UserFormXXX>
+<!--  <Button v-on:click="formState.test=!formState.test">Jest tu Mikołaj</Button>-->
+<!--  <AButton v-on:click="onClick"> BUTTON</AButton>-->
+<!--  <AButton v-on:click="diff">  BUTTON</AButton>-->
+<!--  <h1 v-if="formState.test">Vue is awesome! {{ formState.test }}</h1>-->
+<!--  <h2>Vue is awesome! {{ myData }}</h2>-->
+<!--  <h2 v-if="formState.test">Vue is awesome! {{ myCom }}</h2>-->
+<!--  <input v-model="myData"/>-->
+<!--  <UserFormXXX v-if="formState.test"></UserFormXXX>-->
   <UserList></UserList>
 </template>
 
@@ -15,18 +15,21 @@
 import {defineComponent, reactive, UnwrapRef} from "vue";
 import {AButton} from "/@/components/antd";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
-import UserList from "/@/view/user/UserList.vue";
+import UserList from "";
+import {Button} from "ant-design-vue";
 
 interface StateModel {
   test: boolean
 }
+console.info(Button.name)
 
 const test = defineComponent({
   name: "Test",
   components: {
     UserFormXXX: createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue')),
+    Button : Button,
     AButton,
-    UserList,
+    UserList : createAsyncComponent(() => import('/@/view/user/UserList.vue')),
   },
   data() {
     return {
@@ -45,7 +48,7 @@ const test = defineComponent({
     const formState: UnwrapRef<StateModel> = reactive({
       test: false
     });
-    const me = this;
+
     const onClick = function (values: StateModel) {
       console.log(values, formState);
     };
