@@ -10,6 +10,22 @@ const path = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                changeOrigin: false,
+                secure: false,
+                // rewrite: (path) => {
+                //     // debugger
+                //     // console.log("aaa" + path)
+                //     // const x = path.replace(/^\/api/, '')
+                //     // console.log("zzz" + path +">>>"+ x)
+                //     return path;
+                // }
+            },
+        },
+    },
     resolve:{
         alias: [
             {
