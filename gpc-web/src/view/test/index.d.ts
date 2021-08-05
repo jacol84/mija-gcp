@@ -1,3 +1,7 @@
+export interface Dto {
+    formState: StateModel
+}
+
 export interface StateModel {
     test: boolean,
     search: string
