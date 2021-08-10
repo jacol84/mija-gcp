@@ -4,7 +4,8 @@ export interface Dto {
 
 export interface StateModel {
     test: boolean,
-    search: string
+    search: string,
+    myData: string
 }
 
 export interface UserDto {
