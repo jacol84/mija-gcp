@@ -5,7 +5,7 @@
   <h1>Vue is awesome! {{ state.test }}</h1>
   <AButton v-on:click="()=> state.test = !state.test "> Search</AButton>
   <!--  <h2>Vue is awesome! {{ myData }}</h2>-->
-  <!--  <h2 v-if="state.test">Vue is awesome! {{ myCom }}</h2>-->
+  <h2 v-if="state.test">Vue is awesome! {{ myCom }}</h2>
   <input v-model="state.myData"/>
   <UserFormXXX v-if="state.test"></UserFormXXX>
   <a-input v-model:value="state.search" v-on:keypress.enter="handleSearch"></a-input>
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 
-import {defineComponent, reactive} from "vue";
+import {computed, defineComponent, reactive} from "vue";
 import {AButton, AInput} from "/@/components/antd";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import {Button} from "ant-design-vue";
@@ -36,27 +36,25 @@ const test = defineComponent({
     AButton,
     UserList: createAsyncComponent(() => import('/@/view/user/UserList.vue')),
   },
-  computed: {
-    myCom: () => "jacek" + new Date()
-  },
-
   setup: function () {
 
     const state: StateModel = reactive({
       search: "a",
       myData: "zzzz",
       test: false
-    })
+    });
 
-    function handleSearch() {
+    const myCom = computed(() => "jacek" + state.search + new Date());
+
+    const handleSearch = () => {
       ajax.getJson<Array<UserDto>>("user").then(x => {
             state.test = !state.test
             state.myData = x[getIndex(x)].lastName;
           }
       );
-    }
+    };
 
-    return {state, handleSearch};
+    return {state, handleSearch, myCom};
   },
 })
 
