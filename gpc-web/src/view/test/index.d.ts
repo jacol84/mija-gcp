@@ -5,7 +5,8 @@ export interface Dto {
 export interface StateModel {
     test: boolean,
     search: string,
-    myData: string
+    myData: string,
+    list: Array<UserDto>
 }
 
 export interface UserDto {

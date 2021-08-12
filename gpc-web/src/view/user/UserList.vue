@@ -1,4 +1,5 @@
 <template>
+  <div>asa'{{ list }}'as</div>
   <a-table :columns="columns" :data-source="data">
     <template #name="{ text }">
       <a>{{ text }}</a>
@@ -16,6 +17,7 @@
             :key="tag"
             :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
         >
+
           {{ tag.toUpperCase() }}
         </a-tag>
       </span>
@@ -36,8 +38,9 @@
 </template>
 <script lang="ts">
 import {DownOutlined, SmileOutlined} from '@ant-design/icons-vue';
-import {defineComponent} from 'vue';
+import {defineComponent, toRef} from 'vue';
 import {ADivider, ATable, ATag} from "/@/components/antd";
+import {UserDto} from "/@/view/test";
 
 const columns = [
   {
@@ -93,10 +96,15 @@ const data = [
 ];
 
 export default defineComponent({
-  setup() {
+  props: {
+    list: Array<UserDto>
+  },
+  setup(props) {
+    const list = toRef(props, 'list')
     return {
       data,
       columns,
+      list
     };
   },
   components: {
