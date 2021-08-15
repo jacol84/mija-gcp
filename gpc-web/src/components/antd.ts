@@ -8,12 +8,13 @@ import {
     Row as ARow,
     Spin as ASpin,
     Table as ATable,
-    Tag as ATag
+    Tag as ATag,
+    Tooltip as ATooltip
 } from 'ant-design-vue';
-import {createAsyncComponent} from "/@/utils/component/asyncComponent";
+// import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 
 
-const ZZZ = createAsyncComponent(() => import('ant-design-vue'))
+// const ZZZ = createAsyncComponent(() => import('ant-design-vue'))
 //
 // const {
 //     Button as AButton,
@@ -42,5 +43,6 @@ export {
     AInput,
     AFormItem,
     AButtonGroup,
-    ADatePicker
+    ADatePicker,
+    ATooltip
 }

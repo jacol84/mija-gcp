@@ -1,29 +1,19 @@
 <template>
   <div>asa'{{ list }}'as</div>
-  <a-table :columns="columns" :data-source="data">
+  <a-table :columns="columns" :data-source="list">
     <template #name="{ text }">
-      <a>{{ text }}</a>
-    </template>
-    <template #customTitle>
-      <span>
+      <a>
         <smile-outlined/>
-        Name
-      </span>
-    </template>
-    <template #tags="{ text: tags }">
-      <span>
-        <a-tag
-            v-for="tag in tags"
-            :key="tag"
-            :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-        >
-
-          {{ tag.toUpperCase() }}
-        </a-tag>
-      </span>
+        {{ text }}</a>
     </template>
     <template #action="{ record }">
       <span>
+        <a>
+          <a-tooltip>
+            <template #title>Edytuj</template>
+            <FormOutlined/>
+          </a-tooltip>
+        </a>
         <a>Invite 一 {{ record.name }}</a>
         <a-divider type="vertical"/>
         <a>Delete</a>
@@ -37,32 +27,27 @@
   </a-table>
 </template>
 <script lang="ts">
-import {DownOutlined, SmileOutlined} from '@ant-design/icons-vue';
+import {DownOutlined, FormOutlined, SmileOutlined} from '@ant-design/icons-vue';
 import {defineComponent, toRef} from 'vue';
-import {ADivider, ATable, ATag} from "/@/components/antd";
+import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {UserDto} from "/@/view/test";
 
 const columns = [
   {
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    slots: {title: 'customTitle', customRender: 'name'},
+    slots: {customRender: 'name'},
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    slots: {customRender: 'tags'},
+    title: 'Last name',
+    dataIndex: 'lastName',
+    key: 'last name',
   },
   {
     title: 'Action',
@@ -71,29 +56,6 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
 
 export default defineComponent({
   props: {
@@ -102,17 +64,18 @@ export default defineComponent({
   setup(props) {
     const list = toRef(props, 'list')
     return {
-      data,
-      columns,
-      list
+      list,
+      columns
     };
   },
   components: {
     SmileOutlined,
     DownOutlined,
+    FormOutlined,
     ATable,
     ATag,
-    ADivider
+    ADivider,
+    ATooltip
   },
 });
 </script>

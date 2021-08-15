@@ -1,19 +1,14 @@
 <template>
   <!--  <Button v-on:click="state.test=!state.test">Jest tu Mikołaj</Button>-->
-  <!--  <AButton v-on:click="onClick"> BUTTON</AButton>-->
-  <!--  <AButton v-on:click="onSearch">  BUTTON</AButton>-->
   <h1>Vue is awesome! {{ state.test }}</h1>
-  <AButton v-on:click="()=> state.test = !state.test "> Search</AButton>
+  <AButton v-on:click="handleChange">Search</AButton>
   <!--  <h2>Vue is awesome! {{ myData }}</h2>-->
   <h2 v-if="state.test">Vue is awesome! {{ JSON.stringify(state.list) }}</h2>
   <input v-model="state.myData"/>
   <UserFormXXX v-if="state.test"></UserFormXXX>
   <a-input v-model:value="state.search" v-on:keypress.enter="handleSearch"></a-input>
   <AButton v-on:click="handleSearch"> Search</AButton>
-
-  sasasssssssssss
   <UserList :list="state.list"></UserList>
-  sss
 
 </template>
 
@@ -24,7 +19,7 @@ import {AButton, AInput} from "/@/components/antd";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import {Button} from "ant-design-vue";
 import ajax from "/@/utils/service/ajax/ajax";
-import {StateModel, UserDto} from "/@/view/test/index";
+import {StateModel, UserDto} from "/@/view/test";
 
 
 function getIndex(x: Array) {
@@ -50,7 +45,9 @@ const test = defineComponent({
     });
 
     const myCom = computed(() => "jacek" + state.search + new Date());
-
+    const handleChange = () => {
+      state.test = !state.test
+    };
     const handleSearch = () => {
       ajax.getJson<Array<UserDto>>("user").then(x => {
             state.test = !state.test
@@ -60,7 +57,7 @@ const test = defineComponent({
       );
     };
 
-    return {state, handleSearch, myCom};
+    return {state, myCom, handleChange, handleSearch};
   },
 })
 

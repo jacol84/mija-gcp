@@ -15,7 +15,7 @@ import {ConfigProvider} from 'ant-design-vue';
 import HelloWorld from '/@/components/HelloWorld.vue'
 import MyForm from '/@/components/MyForm.vue'
 import UserForm from '/@/view/user/UserForm.vue'
-import Test from '/@/view/test/Test.vue'
+import Test from '/@/view/user/UserRegistry.vue'
 
 export default defineComponent({
   name: 'App',
