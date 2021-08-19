@@ -35,7 +35,7 @@
 import {DownOutlined, FormOutlined, SmileOutlined} from '@ant-design/icons-vue';
 import {defineComponent, reactive, toRef} from 'vue';
 import {ADivider, AModal, ATable, ATag, ATooltip} from "/@/components/antd";
-import {StateList} from "/@/view/test";
+import {StateList, UserDto} from "/@/view/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 
 const columns = [
@@ -66,7 +66,7 @@ const columns = [
 export default defineComponent({
   props: {
     list: {
-      type: Array,
+      type: Array as () => Array<UserDto>,
       default: []
     }
   },
