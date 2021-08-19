@@ -9,6 +9,10 @@ export interface StateModel {
     list: Array<UserDto>
 }
 
+export interface StateList {
+    visible: boolean
+}
+
 export interface UserDto {
     id: number,
     name: string,

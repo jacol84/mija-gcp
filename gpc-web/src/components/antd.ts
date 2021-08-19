@@ -9,7 +9,8 @@ import {
     Spin as ASpin,
     Table as ATable,
     Tag as ATag,
-    Tooltip as ATooltip
+    Tooltip as ATooltip,
+    Modal as AModal,
 } from 'ant-design-vue';
 // import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 
@@ -44,5 +45,6 @@ export {
     AFormItem,
     AButtonGroup,
     ADatePicker,
-    ATooltip
+    ATooltip,
+    AModal,
 }
