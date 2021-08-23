@@ -6,7 +6,7 @@ export interface StateModel {
     test: boolean,
     search: string,
     myData: string,
-    list: Array<UserDto>
+    list: UserDto[] | undefined | null
 }
 
 export interface StateList {

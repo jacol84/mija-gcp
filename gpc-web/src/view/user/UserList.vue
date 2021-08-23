@@ -1,22 +1,20 @@
 <template>
-  <div>asa'{{ list }}'as</div>
-  <a-table :columns="columns" :data-source="list" rowKey="id">
-    <template #name="{ text }">
-      <a>
-        <smile-outlined/>
-        {{ text }}</a>
-    </template>
-    <template #action="{ record }">
+  <div>
+    <div>asa'{{ list }}'as</div>
+    <a-table :columns="columns" :data-source="list" rowKey="id">
+      <template #name="{ text }">
+        <a>
+          <smile-outlined/>
+          {{ text }}</a>
+      </template>
+      <template #action="{ record }">
         <span>
-          <a v-on:click="state.visible=!state.visible">
+          <a v-on:click="openForm">
             <a-tooltip>
-              <template #title>Edytuj</template>
+              <template #title>Edytuj2</template>
               <FormOutlined/>
-              Edytuj
+              Edytuj2
             </a-tooltip>
-          <a-modal v-model:visible="state.visible" title="Formularz" width="100%" wrapClassName="full-modal">
-            <UserFormXXX></UserFormXXX>
-          </a-modal>
           </a>
           <a-divider type="vertical"/>
           <a>Invite 一 {{ record.name }}</a>
@@ -28,12 +26,41 @@
             <down-outlined/>
           </a>
         </span>
-    </template>
-  </a-table>
+      </template>
+    </a-table>
+    <a-modal v-model:visible="state.visible" title="Formularz" width="100%" wrapClassName="full-modal">
+      <template #closeIcon>
+        <div>
+          <a-tooltip :title="'component.modal.restore'" placement="bottom">
+            <FullscreenExitOutlined role="full"/>
+          </a-tooltip>
+          <a-tooltip :title="'component.modal.maximize'" placement="bottom">
+            <FullscreenOutlined role="close"/>
+          </a-tooltip>
+          <a-tooltip :title="'component.modal.close'" placement="bottom">
+            <CloseOutlined/>
+          </a-tooltip>
+        </div>
+      </template>
+      <UserFormXXX></UserFormXXX>
+
+      <div>
+        <a-tooltip :title="'component.modal.restore'" placement="bottom">
+          <FullscreenExitOutlined role="full"/>
+        </a-tooltip>
+        <a-tooltip :title="'component.modal.maximize'" placement="bottom">
+          <FullscreenOutlined role="close"/>
+        </a-tooltip>
+        <a-tooltip :title="'component.modal.close'" placement="bottom">
+          <CloseOutlined/>
+        </a-tooltip>
+      </div>
+    </a-modal>
+  </div>
 </template>
 <script lang="ts">
-import {DownOutlined, FormOutlined, SmileOutlined} from '@ant-design/icons-vue';
-import {defineComponent, reactive, toRef} from 'vue';
+import {DownOutlined, FormOutlined, SmileOutlined, FullscreenExitOutlined, FullscreenOutlined, CloseOutlined} from '@ant-design/icons-vue';
+import {createVNode, defineComponent, reactive, toRef} from 'vue';
 import {ADivider, AModal, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/view/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
@@ -72,8 +99,23 @@ export default defineComponent({
   },
   setup(props) {
     const state: StateList = reactive({visible: false});
+    // const [registerModal, { openModal }] = useModal();
     const list = toRef(props, 'list')
+    const openForm = () => {
+      state.visible = !state.visible;
+      AModal.info({
+        icon: undefined,
+        title: 'This is a notification message',
+        content: createVNode(createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue'))),
+        okButtonProps: {
+          "disabled": true,
+        },
+        okText:undefined
+      })
+    }
+
     return {
+      openForm,
       list,
       columns,
       state
@@ -88,7 +130,10 @@ export default defineComponent({
     ATag,
     AModal,
     ADivider,
-    ATooltip
+    ATooltip,
+    FullscreenExitOutlined,
+    CloseOutlined,
+    FullscreenOutlined
   },
 });
 </script>

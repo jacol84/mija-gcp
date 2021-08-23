@@ -22,14 +22,13 @@ import ajax from "/@/utils/service/ajax/ajax";
 import {StateModel, UserDto} from "/@/view/test";
 
 
-function getIndex(x: Array) {
+function getIndex(x: UserDto[]) {
   return Math.floor(Math.random() * x.length);
 }
 
 const test = defineComponent({
   name: "Test",
   components: {
-    UserFormXXX: createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue')),
     Button: Button,
     AInput: AInput,
     AButton,
@@ -49,7 +48,7 @@ const test = defineComponent({
       state.test = !state.test
     };
     const handleSearch = () => {
-      ajax.getJson<Array<UserDto>>("user").then(x => {
+      ajax.getJson<UserDto[]>("user").then(x => {
             state.test = !state.test
             state.myData = x[getIndex(x)].lastName;
             state.list = state.test ? x || [] : []
