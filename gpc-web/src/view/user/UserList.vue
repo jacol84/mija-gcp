@@ -28,42 +28,18 @@
         </span>
       </template>
     </a-table>
-    <a-modal v-model:visible="state.visible" title="Formularz" width="100%" wrapClassName="full-modal">
-      <template #closeIcon>
-        <div>
-          <a-tooltip :title="'component.modal.restore'" placement="bottom">
-            <FullscreenExitOutlined role="full"/>
-          </a-tooltip>
-          <a-tooltip :title="'component.modal.maximize'" placement="bottom">
-            <FullscreenOutlined role="close"/>
-          </a-tooltip>
-          <a-tooltip :title="'component.modal.close'" placement="bottom">
-            <CloseOutlined/>
-          </a-tooltip>
-        </div>
-      </template>
+    <BasicModal v-model:visible="state.visible">
       <UserFormXXX></UserFormXXX>
-
-      <div>
-        <a-tooltip :title="'component.modal.restore'" placement="bottom">
-          <FullscreenExitOutlined role="full"/>
-        </a-tooltip>
-        <a-tooltip :title="'component.modal.maximize'" placement="bottom">
-          <FullscreenOutlined role="close"/>
-        </a-tooltip>
-        <a-tooltip :title="'component.modal.close'" placement="bottom">
-          <CloseOutlined/>
-        </a-tooltip>
-      </div>
-    </a-modal>
+    </BasicModal>
   </div>
 </template>
 <script lang="ts">
-import {DownOutlined, FormOutlined, SmileOutlined, FullscreenExitOutlined, FullscreenOutlined, CloseOutlined} from '@ant-design/icons-vue';
-import {createVNode, defineComponent, reactive, toRef} from 'vue';
-import {ADivider, AModal, ATable, ATag, ATooltip} from "/@/components/antd";
+import {CloseOutlined, DownOutlined, FormOutlined, FullscreenExitOutlined, FullscreenOutlined, SmileOutlined} from '@ant-design/icons-vue';
+import {defineComponent, reactive, toRef} from 'vue';
+import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/view/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
+import BasicModal from "/@/utils/modal/BasicModal.vue";
 
 const columns = [
   {
@@ -99,19 +75,9 @@ export default defineComponent({
   },
   setup(props) {
     const state: StateList = reactive({visible: false});
-    // const [registerModal, { openModal }] = useModal();
     const list = toRef(props, 'list')
     const openForm = () => {
       state.visible = !state.visible;
-      AModal.info({
-        icon: undefined,
-        title: 'This is a notification message',
-        content: createVNode(createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue'))),
-        okButtonProps: {
-          "disabled": true,
-        },
-        okText:undefined
-      })
     }
 
     return {
@@ -128,12 +94,12 @@ export default defineComponent({
     FormOutlined,
     ATable,
     ATag,
-    AModal,
     ADivider,
     ATooltip,
     FullscreenExitOutlined,
     CloseOutlined,
-    FullscreenOutlined
+    FullscreenOutlined,
+    BasicModal,
   },
 });
 </script>
