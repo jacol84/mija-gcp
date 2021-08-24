@@ -28,7 +28,7 @@
         </span>
       </template>
     </a-table>
-    <BasicModal v-model:visible="state.visible">
+    <BasicModal v-model:visible="state.visible" @cancel="closeForm">
       <UserFormXXX></UserFormXXX>
     </BasicModal>
   </div>
@@ -79,9 +79,14 @@ export default defineComponent({
     const openForm = () => {
       state.visible = !state.visible;
     }
+    const closeForm = () => {
+      alert("2")
+      state.visible = false;
+    }
 
     return {
       openForm,
+      closeForm,
       list,
       columns,
       state
