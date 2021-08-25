@@ -28,7 +28,7 @@
         </span>
       </template>
     </a-table>
-    <BasicModal v-model:visible="state.visible" @cancel="closeForm">
+    <BasicModal title="Formularza" :visible="state.visible" @cancel="closeForm">
       <UserFormXXX></UserFormXXX>
     </BasicModal>
   </div>
@@ -74,13 +74,12 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const state: StateList = reactive({visible: false});
+    const state: StateList = reactive({visible: true});
     const list = toRef(props, 'list')
     const openForm = () => {
       state.visible = !state.visible;
     }
     const closeForm = () => {
-      alert("2")
       state.visible = false;
     }
 

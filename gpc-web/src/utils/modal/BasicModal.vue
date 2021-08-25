@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" title="Formularz" @cancel="cancel">
+  <a-modal :visible="visible" :title="title" @cancel="onCancel">
     <template #closeIcon>
       <div>
         <a-tooltip :title="'component.modal.restore'" placement="bottom" v-if="state.mode" v-on:click="onFull">
@@ -20,26 +20,31 @@
 <script lang="ts">
 import {AModal, ATooltip} from "/@/components/antd";
 import {CloseOutlined, FullscreenExitOutlined, FullscreenOutlined} from "@ant-design/icons-vue";
-import {defineComponent, reactive} from "vue";
+import {computed, defineComponent, reactive} from "vue";
 
 export default defineComponent({
   name: "BasicModal",
   props: {
     visible: {type: Boolean, default: false},
+    title: {type: String, default: "Title"},
     fullMode: {type: Boolean, default: false},
   },
-  emits: ["cancel"],
-  setup: (props) => {
+  emits: ["cancel", "onFull"],
+  setup: (props, {emit}) => {
     const fullMode = props.fullMode;
     const state = reactive({
       mode: fullMode
     });
+    const visible = computed(() => props.visible);
     const onFull = (e: Event) => {
       e && e.stopPropagation();
       state.mode = !state.mode
+      emit("onFull", state.mode)
     }
-
-    return {state, onFull}
+    const onCancel = () => {
+      emit("cancel")
+    }
+    return {visible, state, onFull, onCancel}
   },
   components: {
     FullscreenOutlined,
