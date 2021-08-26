@@ -25,7 +25,7 @@ import {computed, defineComponent, reactive} from "vue";
 export default defineComponent({
   name: "BasicModal",
   props: {
-    visible: {type: Boolean, default: false},
+    mijaVisible: {type: Boolean, default: false},
     title: {type: String, default: "Title"},
     fullMode: {type: Boolean, default: false},
   },
@@ -35,7 +35,7 @@ export default defineComponent({
     const state = reactive({
       mode: fullMode
     });
-    const visible = computed(() => props.visible);
+    const visible = computed(() => props.mijaVisible);
     const onFull = (e: Event) => {
       e && e.stopPropagation();
       state.mode = !state.mode

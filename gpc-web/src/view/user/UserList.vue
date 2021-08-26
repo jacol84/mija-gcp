@@ -28,14 +28,14 @@
         </span>
       </template>
     </a-table>
-    <BasicModal title="Formularza" :visible="state.visible" @cancel="closeForm">
-      <UserFormXXX></UserFormXXX>
+    <BasicModal title="Formularza" :mija-visible="state.visible" @cancel="closeForm">
+      <UserFormXXX :action="actionForm" :id="state.id"></UserFormXXX>
     </BasicModal>
   </div>
 </template>
 <script lang="ts">
 import {CloseOutlined, DownOutlined, FormOutlined, FullscreenExitOutlined, FullscreenOutlined, SmileOutlined} from '@ant-design/icons-vue';
-import {defineComponent, reactive, toRef} from 'vue';
+import {computed, defineComponent, reactive, toRef} from 'vue';
 import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/view/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
@@ -74,21 +74,24 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const state: StateList = reactive({visible: true});
+    const state: StateList = reactive({visible: false, id: undefined});
     const list = toRef(props, 'list')
     const openForm = () => {
       state.visible = !state.visible;
     }
     const closeForm = () => {
+      state.id = Math.random() > 0.6 ? 100 : undefined
       state.visible = false;
     }
+    const actionForm = computed(() => state.id ? 'EDIT' : 'NEW');
 
     return {
       openForm,
       closeForm,
       list,
       columns,
-      state
+      state,
+      actionForm
     };
   },
   components: {
