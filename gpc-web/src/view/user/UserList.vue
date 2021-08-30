@@ -9,7 +9,7 @@
       </template>
       <template #action="{ record }">
         <span>
-          <a v-on:click="openForm">
+          <a v-on:click="openForm(record)">
             <a-tooltip>
               <template #title>Edytuj2</template>
               <FormOutlined/>
@@ -29,7 +29,7 @@
       </template>
     </a-table>
     <BasicModal title="Formularza" :mija-visible="state.visible" @cancel="closeForm">
-      <UserFormXXX :action="actionForm" :id="state.id"></UserFormXXX>
+      <UserFormSup :action="actionForm" :id="state.id"></UserFormSup>
     </BasicModal>
   </div>
 </template>
@@ -40,6 +40,7 @@ import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/view/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import BasicModal from "/@/utils/modal/BasicModal.vue";
+import {Action} from "/@/utils/service/form/action";
 
 const columns = [
   {
@@ -74,16 +75,16 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const state: StateList = reactive({visible: false, id: undefined});
+    const state: StateList = reactive({visible: false});
     const list = toRef(props, 'list')
-    const openForm = () => {
-      state.visible = !state.visible;
+    const openForm = (record: UserDto) => {
+      state.id = record.id
+      state.visible = true;
     }
     const closeForm = () => {
-      state.id = Math.random() > 0.6 ? 100 : undefined
       state.visible = false;
     }
-    const actionForm = computed(() => state.id ? 'EDIT' : 'NEW');
+    const actionForm = computed(() => state.id ? Action.EDIT : Action.NEW);
 
     return {
       openForm,
@@ -95,7 +96,7 @@ export default defineComponent({
     };
   },
   components: {
-    UserFormXXX: createAsyncComponent(() => import('/@/view/user/UserFormXXX.vue')),
+    UserFormSup: createAsyncComponent(() => import('/@/view/user/UserFormSup.vue')),
     SmileOutlined,
     DownOutlined,
     FormOutlined,

@@ -1,24 +1,19 @@
 <template>
-  {{id}}
-  {{action}}
-  <UserForm></UserForm>
+  <p>{{ id }} {{ action }} </p>
+  <UserForm :id="id" :action="action"></UserForm>
 </template>
 
 
 <script lang="ts">
-
 import UserForm from "/@/view/user/UserForm.vue";
 import {defineComponent, PropType} from "vue";
-
+import {Action} from "/@/utils/service/form/action";
 
 export default defineComponent({
-  name: 'BasicFormXXX',
+  name: 'UserFormSup',
   props: {
     action: {
-      type: String,
-      validator(value: string) {
-        return ['NEW', 'EDIT'].includes(value)
-      }
+      type: Number as PropType<Action>
     },
     id: {
       type: Number as PropType<Number | undefined>,
@@ -28,7 +23,8 @@ export default defineComponent({
     UserForm,
   },
   setup() {
-    return {}
+
+    return {};
   },
 });
 </script>

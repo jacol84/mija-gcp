@@ -11,7 +11,7 @@ export interface StateModel {
 
 export interface StateList {
     visible: boolean
-    id: Number | undefined
+    id?: Number
 }
 
 export interface UserDto {

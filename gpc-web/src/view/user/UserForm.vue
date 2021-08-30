@@ -5,6 +5,7 @@
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
   >
+    <h1>{{ action }}</h1>
     <a-form-item>
       <a-date-picker v-model:value="formState.aDate"/>
     </a-form-item>
@@ -16,11 +17,11 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formState.password" type="password" :placeholder="t('user.user.userName')">
+      <a-input-password v-model:value="formState.password" type="password" :placeholder="t('user.user.userName')">
         <template #prefix>
           <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
         </template>
-      </a-input>
+      </a-input-password>
     </a-form-item>
     <a-form-item>
       <a-button
@@ -40,16 +41,25 @@
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
 import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
-import {defineComponent, reactive, UnwrapRef} from 'vue';
-import {AButton, ADatePicker, AForm, AFormItem, AInput} from "/@/components/antd";
+import {defineComponent, PropType, reactive, UnwrapRef} from 'vue';
+import {AButton, ADatePicker, AForm, AFormItem, AInput, AInputPassword} from "/@/components/antd";
 import moment from 'moment';
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
 import {FormState} from "/@/view/user/index";
+import {Action} from "/@/utils/service/form/action";
 
 export default defineComponent({
   name: 'BasicForm',
+  props: {
+    action: {
+      type: Number as PropType<Action>
+    },
+    id: {
+      type: Number as PropType<Number | undefined>,
+    }
+  },
   components: {
     UserOutlined,
     LockOutlined,
@@ -58,8 +68,9 @@ export default defineComponent({
     AForm,
     AFormItem,
     ADatePicker,
+    AInputPassword,
   },
-  setup() {
+  setup(props) {
     const {t} = useI18n();
     const formState: UnwrapRef<FormState> = reactive({
       user: '',
@@ -73,11 +84,14 @@ export default defineComponent({
       console.log(errors);
     };
     return {
+      ...props,
       t,
       formState,
       handleFinish,
       handleFinishFailed,
-      locale
+      locale,
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
     };
   },
 });

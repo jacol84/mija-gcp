@@ -31,6 +31,7 @@ import {
 // } =ZZZ;
 const AFormItem = AForm.Item
 const AButtonGroup = AButton.Group
+const AInputPassword = AInput.Password
 
 export {
     ATable,
@@ -47,4 +48,5 @@ export {
     ADatePicker,
     ATooltip,
     AModal,
+    AInputPassword,
 }
