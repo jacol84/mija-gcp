@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>asa'{{ list }}'as</div>
     <a-table :columns="columns" :data-source="list" rowKey="id">
       <template #name="{ text }">
         <a>
@@ -29,7 +28,7 @@
       </template>
     </a-table>
     <BasicModal title="Formularza" :mija-visible="state.visible" @cancel="closeForm">
-      <UserFormSup :action="actionForm" :id="state.id"></UserFormSup>
+      <UserFormSup :actionX="actionForm" :id="state.id"></UserFormSup>
     </BasicModal>
   </div>
 </template>
@@ -37,7 +36,7 @@
 import {CloseOutlined, DownOutlined, FormOutlined, FullscreenExitOutlined, FullscreenOutlined, SmileOutlined} from '@ant-design/icons-vue';
 import {computed, defineComponent, reactive, toRef} from 'vue';
 import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
-import {StateList, UserDto} from "/@/view/test";
+import {StateList, UserDto} from "/@/app/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import BasicModal from "/@/utils/modal/BasicModal.vue";
 import {Action} from "/@/utils/service/form/action";
@@ -84,7 +83,7 @@ export default defineComponent({
     const closeForm = () => {
       state.visible = false;
     }
-    const actionForm = computed(() => state.id ? Action.EDIT : Action.NEW);
+    const actionForm = computed(() => Math.random() > 0.5 ? Action.NEW : Action.EDIT);
 
     return {
       openForm,
@@ -96,7 +95,7 @@ export default defineComponent({
     };
   },
   components: {
-    UserFormSup: createAsyncComponent(() => import('/@/view/user/UserFormSup.vue')),
+    UserFormSup: createAsyncComponent(() => import('/@/app/user/view/UserFormSup.vue')),
     SmileOutlined,
     DownOutlined,
     FormOutlined,

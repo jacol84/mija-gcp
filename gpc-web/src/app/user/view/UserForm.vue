@@ -47,11 +47,11 @@ import moment from 'moment';
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
-import {FormState} from "/@/view/user/index";
+import {FormState} from "/@/app/user/dto";
 import {Action} from "/@/utils/service/form/action";
 
 export default defineComponent({
-  name: 'BasicForm',
+  name: 'UserForm',
   props: {
     action: {
       type: Number as PropType<Action>

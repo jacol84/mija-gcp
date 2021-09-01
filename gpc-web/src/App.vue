@@ -10,12 +10,12 @@
 
 <script lang="ts">
 import plPL from 'ant-design-vue/es/locale/pl_PL';
-import {defineComponent, defineAsyncComponent } from 'vue'
+import {defineComponent} from 'vue'
 import {ConfigProvider} from 'ant-design-vue';
 import HelloWorld from '/@/components/HelloWorld.vue'
 import MyForm from '/@/components/MyForm.vue'
-import UserForm from '/@/view/user/UserForm.vue'
-import Test from '/@/view/user/UserRegistry.vue'
+import UserForm from '/@/app/user/view/UserForm.vue'
+import Test from '/@/app/user/view/UserRegistry.vue'
 
 export default defineComponent({
   name: 'App',
@@ -28,9 +28,9 @@ export default defineComponent({
   },
   setup() {
 
-    let xxx = ()=>import("/@/components/MyForm.vue")
+    // let form = () => import("/@/components/MyForm.vue")
 
-    return { locale:plPL };
+    return {locale: plPL};
   },
 })
 </script>

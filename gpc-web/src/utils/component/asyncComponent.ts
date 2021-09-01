@@ -1,6 +1,6 @@
 import {defineAsyncComponent} from "vue";
 import {noop} from "ant-design-vue/es/vc-menu/util";
-import Spin from "/@/view/utils/Spin.vue"
+import Spin from "/@/app/utils/Spin.vue"
 interface Options {
     delay?: number;
     timeout?: number;

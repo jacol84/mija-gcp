@@ -1,18 +1,18 @@
 <template>
-  <p>{{ id }} {{ action }} </p>
-  <UserForm :id="id" :action="action"></UserForm>
+  <p>{{ id }} {{ actionX }} </p>
+  <UserForm :id="id" :action="actionX"></UserForm>
 </template>
 
 
 <script lang="ts">
-import UserForm from "/@/view/user/UserForm.vue";
+import UserForm from "/@/app/user/view/UserForm.vue";
 import {defineComponent, PropType} from "vue";
 import {Action} from "/@/utils/service/form/action";
 
 export default defineComponent({
   name: 'UserFormSup',
   props: {
-    action: {
+    actionX: {
       type: Number as PropType<Action>
     },
     id: {
@@ -22,8 +22,8 @@ export default defineComponent({
   components: {
     UserForm,
   },
-  setup() {
-
+  setup(p) {
+    console.log(p.actionX, "a")
     return {};
   },
 });
