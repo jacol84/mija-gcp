@@ -1,5 +1,4 @@
 <template>
-  <p>{{ id }} {{ actionX }} </p>
   <UserForm :id="id" :action="actionX"></UserForm>
 </template>
 
