@@ -1,6 +1,7 @@
 import {StateModel, UserDto} from "/@/app/test";
 import {computed, reactive} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
+import {Action} from "/@/utils/service/form/action";
 
 function getIndex(x: UserDto[]) {
     return Math.floor(Math.random() * x.length);
@@ -12,11 +13,21 @@ export function userRegistryService() {
         search: "a",
         myData: "zzzz",
         test: false,
-        list: null
+        list: undefined,
+        form: {
+            action: Action.NEW
+        }
     });
+    const closeForm = () => {
+        state.form.visible = false;
+    }
+    const openForm = (record?: UserDto) => {
+        state.form.id = record?.id
+        state.form.visible = true;
+    }
+    const actionForm = computed(() => state.form.id ? Action.NEW : Action.EDIT);
 
     const myCom = computed(() => "jacek" + state.search + new Date());
-
 
     const handleSearch = () => {
         ajax.getJson<UserDto[]>("user").then(x => {
@@ -26,8 +37,14 @@ export function userRegistryService() {
             }
         );
     };
+
+    const handleAdd = () => {
+        openForm(undefined);
+    };
+
     return {
-        state, myCom,
-        handleSearch,
+        state, myCom, closeForm, openForm,
+        handleAdd,
+        handleSearch, actionForm,
     }
 }

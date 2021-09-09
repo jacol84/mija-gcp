@@ -1,21 +1,32 @@
 <template>
-  <!--  <Button v-on:click="state.test=!state.test">Jest tu Mikołaj</Button>-->
-  <h1>Vue is awesome! {{ state.test }}</h1>
-  <input v-model="state.myData"/>
-  <!--  <UserFormXXX v-if="state.test"></UserFormXXX>-->
-  <a-input v-model:value="state.search" v-on:keypress.enter="handleSearch"></a-input>
-  <AButton v-on:click="handleSearch"> Search</AButton>
-  <UserList :list="state.list"></UserList>
+  <div>
+    <h1>Vue is awesome! {{ state.test }}</h1>
+    <input v-model="state.myData"/>
+    <a-input v-model:value="state.search" v-on:keypress.enter="handleSearch"></a-input>
+    <a-button v-on:click="handleSearch"> Search</a-button>
+    <a-button v-on:click="handleAdd">
+      <template #icon>
+        <PlusSquareOutlined/>
+      </template>
+      Add
+    </a-button>
+    <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
 
+    <BasicModal title="Formularza" :mija-visible="state.form.visible" @cancel="closeForm">
+      <UserFormSup :actionX="actionForm" :id="state.form.id"></UserFormSup>
+    </BasicModal>
+  </div>
 </template>
 
 <script lang="ts">
 
 import {defineComponent} from "vue";
+import {PlusSquareOutlined} from '@ant-design/icons-vue';
 import {AButton, AInput} from "/@/components/antd";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import {Button} from "ant-design-vue";
 import {userRegistryService} from "/@/app/user/service/UserRegistryService";
+import BasicModal from "/@/utils/modal/BasicModal.vue";
 
 
 const test = defineComponent({
@@ -23,7 +34,10 @@ const test = defineComponent({
   components: {
     Button: Button,
     AInput: AInput,
+    PlusSquareOutlined,
     AButton,
+    BasicModal,
+    UserFormSup: createAsyncComponent(()=> import('/@/app/user/view/UserFormSup.vue')),
     UserList: createAsyncComponent(() => import('/@/app/user/view/UserList.vue')),
   },
   setup: function () {

@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="visible" :title="title" @cancel="onCancel">
+  <a-modal :visible="visible" :title="title" @cancel="onCancel" :footer="null">
     <template #closeIcon>
       <div>
         <a-tooltip :title="'component.modal.restore'" placement="bottom" v-if="state.mode" v-on:click="onFull">

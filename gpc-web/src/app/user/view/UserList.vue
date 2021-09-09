@@ -27,14 +27,11 @@
         </span>
       </template>
     </a-table>
-    <BasicModal title="Formularza" :mija-visible="state.visible" @cancel="closeForm">
-      <UserFormSup :actionX="actionForm" :id="state.id"></UserFormSup>
-    </BasicModal>
   </div>
 </template>
 <script lang="ts">
 import {CloseOutlined, DownOutlined, FormOutlined, FullscreenExitOutlined, FullscreenOutlined, SmileOutlined} from '@ant-design/icons-vue';
-import {computed, defineComponent, reactive, toRef} from 'vue';
+import {defineComponent, PropType, reactive, toRef} from 'vue';
 import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/app/test";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
@@ -71,27 +68,28 @@ export default defineComponent({
     list: {
       type: Array as () => Array<UserDto>,
       default: []
-    }
+    },
+    openFormXYZ: {
+      type: Function as PropType<(record?: UserDto) => undefined>,
+      require: true,
+    },
   },
+  emits: ["openForm"],
   setup(props) {
+    const {openFormXYZ} = props
     const state: StateList = reactive({visible: false});
     const list = toRef(props, 'list')
-    const openForm = (record: UserDto) => {
-      state.id = record.id
-      state.visible = true;
-    }
-    const closeForm = () => {
-      state.visible = false;
-    }
-    const actionForm = computed(() => Math.random() > 0.5 ? Action.NEW : Action.EDIT);
 
+    const openForm = (record: UserDto) => {
+      if (openFormXYZ != undefined) {
+        openFormXYZ(record)
+      }
+    }
     return {
       openForm,
-      closeForm,
       list,
       columns,
       state,
-      actionForm
     };
   },
   components: {
