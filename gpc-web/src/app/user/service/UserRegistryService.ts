@@ -1,4 +1,4 @@
-import {StateModel, UserDto} from "/@/app/test";
+import {ModalForm, StateModel, UserDto} from "/@/app/test";
 import {computed, reactive} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {Action} from "/@/utils/service/form/action";
@@ -7,25 +7,31 @@ function getIndex(x: UserDto[]) {
     return Math.floor(Math.random() * x.length);
 }
 
-export function userRegistryService() {
+function modalAction() {
+    const form: ModalForm = reactive({
+            action: Action.NEW
+        }
+    )
+    const closeForm = () => {
+        form.visible = false;
+    }
+    const openForm = (record?: UserDto) => {
+        form.id = record?.id
+        form.visible = true;
+    }
+    const actionForm = computed(() => form.id ? Action.NEW : Action.EDIT);
+    return {form, closeForm, openForm, actionForm}
+}
 
+export function userRegistryService() {
+    const {form, closeForm, openForm, actionForm} = modalAction()
     const state: StateModel = reactive({
         search: "a",
         myData: "zzzz",
         test: false,
         list: undefined,
-        form: {
-            action: Action.NEW
-        }
+        form: form
     });
-    const closeForm = () => {
-        state.form.visible = false;
-    }
-    const openForm = (record?: UserDto) => {
-        state.form.id = record?.id
-        state.form.visible = true;
-    }
-    const actionForm = computed(() => state.form.id ? Action.NEW : Action.EDIT);
 
     const myCom = computed(() => "jacek" + state.search + new Date());
 

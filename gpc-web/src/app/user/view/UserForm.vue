@@ -41,7 +41,7 @@
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
 import locale from 'ant-design-vue/es/date-picker/locale/pl_PL';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
-import {defineComponent, PropType, reactive, UnwrapRef} from 'vue';
+import {defineComponent, PropType, reactive, toRefs, UnwrapRef} from 'vue';
 import {AButton, ADatePicker, AForm, AFormItem, AInput, AInputPassword} from "/@/components/antd";
 import moment from 'moment';
 
@@ -72,6 +72,7 @@ export default defineComponent({
   },
   setup(props) {
     const {t} = useI18n();
+    const {action} = toRefs(props)
     const formState: UnwrapRef<FormState> = reactive({
       user: '',
       password: '',
@@ -85,13 +86,14 @@ export default defineComponent({
     };
     return {
       ...props,
+      action,
       t,
       formState,
       handleFinish,
       handleFinishFailed,
       locale,
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
+      labelCol: {span: 4},
+      wrapperCol: {span: 14},
     };
   },
 });
