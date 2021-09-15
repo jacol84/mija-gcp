@@ -39,6 +39,7 @@
     "vue-tsc": "^0.1.7"
   },
   "resolutions": {
-    "trim-newlines": "4.0.2"
+    "trim-newlines": "^4.0.2",
+    "yargs-parser": "^20.2.9"
   }
 }
