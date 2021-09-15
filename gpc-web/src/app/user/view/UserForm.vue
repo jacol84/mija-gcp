@@ -1,38 +1,42 @@
 <template>
-  <a-form
-      layout="inline"
-      :model="formState"
-      @finish="handleFinish"
-      @finishFailed="handleFinishFailed"
-  >
-    <h1>{{ action }}</h1>
-    <a-form-item>
-      <a-date-picker v-model:value="formState.aDate"/>
-    </a-form-item>
-    <a-form-item>
-      <a-input v-model:value="formState.user" :placeholder="t('user.user.userName')">
-        <template #prefix>
-          <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
-        </template>
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-input-password v-model:value="formState.password" type="password" :placeholder="t('user.user.userName')">
-        <template #prefix>
-          <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
-        </template>
-      </a-input-password>
-    </a-form-item>
-    <a-form-item>
-      <a-button
-          type="primary"
-          html-type="submit"
-          :disabled="formState.user === '' || formState.password === ''"
-      >
-        Log in
-      </a-button>
-    </a-form-item>
-  </a-form>
+  <div>{{formState.loading}}aaaaaaaaaa</div>
+  <Loading v-model:loading="formState.loading">
+    <a-form
+        layout="inline"
+        :model="formState"
+        @finish="handleFinish"
+        @finishFailed="handleFinishFailed"
+    >
+      <h1>{{ action }}</h1>
+      <a-form-item>
+        <a-date-picker v-model:value="formState.aDate"/>
+      </a-form-item>
+      <a-form-item>
+        <a-input v-model:value="formState.user" :placeholder="t('user.user.userName')">
+          <template #prefix>
+            <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
+          </template>
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-input-password v-model:value="formState.password" type="password" :placeholder="t('user.user.userName')">
+          <template #prefix>
+            <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
+          </template>
+        </a-input-password>
+      </a-form-item>
+      <a-form-item>
+        <a-button
+            type="primary"
+            html-type="submit"
+            :disabled="formState.user === '' || formState.password === ''"
+        >
+          Log in
+        </a-button>
+      </a-form-item>
+    </a-form>
+  </Loading>
+
 </template>
 
 
@@ -49,6 +53,7 @@ import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
 import {FormState} from "/@/app/user/dto";
 import {Action} from "/@/utils/service/form/action";
+import Loading from "/@/app/utils/Loading.vue";
 
 export default defineComponent({
   name: 'UserForm',
@@ -61,6 +66,7 @@ export default defineComponent({
     }
   },
   components: {
+    Loading,
     UserOutlined,
     LockOutlined,
     AButton,
@@ -74,6 +80,7 @@ export default defineComponent({
     const {t} = useI18n();
     const {action} = toRefs(props)
     const formState: UnwrapRef<FormState> = reactive({
+      loading: false,
       user: '',
       password: '',
       aDate: moment(1622725402000),

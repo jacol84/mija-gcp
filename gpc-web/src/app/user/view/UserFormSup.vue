@@ -21,8 +21,7 @@ export default defineComponent({
   components: {
     UserForm,
   },
-  setup(p) {
-    console.log(p.actionX, "a")
+  setup() {
     return {};
   },
 });

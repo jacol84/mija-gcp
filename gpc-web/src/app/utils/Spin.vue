@@ -11,12 +11,14 @@
   </a-row>
 </template>
 
-<script>
+
+<script lang="ts">
 
 import {ASpin, ARow, ACol} from "/@/components/antd";
 import {useI18n} from "/@/hooks/useI18n";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "Spin",
   components: {
     ASpin, ARow, ACol
@@ -25,7 +27,7 @@ export default {
     const {t} = useI18n();
     return {t}
   }
-}
+});
 
 
 </script>
