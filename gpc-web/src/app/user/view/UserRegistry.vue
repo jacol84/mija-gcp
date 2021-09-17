@@ -13,7 +13,7 @@
     <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
 
     <BasicModal title="Formularza" :mija-visible="state.form.visible" @cancel="closeForm">
-      <UserFormSup :actionX="actionForm" :id="state.form.id"></UserFormSup>
+      <UserFormSup :actionX="actionForm" :id="state.form.id" ></UserFormSup>
     </BasicModal>
   </div>
 </template>

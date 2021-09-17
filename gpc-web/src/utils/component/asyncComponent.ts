@@ -1,5 +1,5 @@
 import {defineAsyncComponent} from "vue";
-import Spin from "/@/app/utils/Spin.vue"
+import Spin from "/@/app/utils/component/Spin.vue"
 import {noop} from "ant-design-vue/es/vc-trigger/utils";
 
 interface Options {

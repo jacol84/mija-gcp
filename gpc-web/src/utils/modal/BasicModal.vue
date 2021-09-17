@@ -13,7 +13,7 @@
         </a-tooltip>
       </div>
     </template>
-    <slot></slot>
+    <slot v-if="visible"></slot>
   </a-modal>
 </template>
 

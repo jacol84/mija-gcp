@@ -1,13 +1,14 @@
 <template>
+  <div>zzz</div>
   <Spin v-if="loading"></Spin>
   <slot v-if="!loading"/>
 </template>
 
 <script lang="ts">
-import Spin from "/@/app/utils/Spin.vue";
+import Spin from "/@/app/utils/component/Spin.vue";
 import {defineComponent, PropType} from "vue";
 
-const loading = defineComponent({
+const Loading = defineComponent({
   name: "Loading",
   props: {
     loading: {
@@ -18,5 +19,5 @@ const loading = defineComponent({
     Spin,
   }
 });
-export default loading
+export default Loading
 </script>
