@@ -1,7 +1,8 @@
 import {Moment} from "moment";
 
 export interface FormState {
-    user: string;
-    password: string;
+    id: number,
+    name: string,
+    lastName: string,
     aDate: Moment;
 }

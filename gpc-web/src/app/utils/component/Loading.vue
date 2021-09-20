@@ -1,5 +1,4 @@
 <template>
-  <div>zzz</div>
   <Spin v-if="loading"></Spin>
   <slot v-if="!loading"/>
 </template>
