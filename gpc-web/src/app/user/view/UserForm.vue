@@ -6,25 +6,10 @@
       <a-date-picker v-model:value="formUtil.formState.aDate"/>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formUtil.formState.name" :placeholder="t('user.user.userName')">
-        <template #prefix>
-          <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
-        </template>
-      </a-input>
+      <a-input v-model:value="formUtil.formState.name" :placeholder="t('user.user.name')"/>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formUtil.formState.lastName" :placeholder="t('user.user.userName')">
-        <template #prefix>
-          <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
-        </template>
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-input-password v-model:value="formUtil.formState.password" type="password" :placeholder="t('user.user.userName')">
-        <template #prefix>
-          <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
-        </template>
-      </a-input-password>
+      <a-input v-model:value="formUtil.formState.lastName" :placeholder="t('user.user.lastName')"/>
     </a-form-item>
     <a-form-item>
       <a-button
@@ -92,7 +77,8 @@ export default defineComponent({
       ...props,
       action,
       t,
-      formUtil
+      formUtil,
+      formState: formUtil.formState,
     };
   },
 });

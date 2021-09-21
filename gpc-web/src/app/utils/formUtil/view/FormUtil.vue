@@ -1,5 +1,4 @@
 <template>
-  <div>aaa->{{ form.loading }}</div>
   <loading v-model:loading="form.loading">
     <a-form
         layout="inline"
@@ -26,7 +25,7 @@ export default defineComponent({
     form: {
       type: Object as PropType<FormUtilDto<any>>
     },
-    components: {Loading, AForm},
+    components: {AForm, Loading,},
   },
 })
 </script>

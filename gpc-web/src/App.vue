@@ -4,7 +4,6 @@
     <Test/>
     <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
     <MyForm/>
-    <UserForm/>
   </ConfigProvider>
 </template>
 
@@ -14,7 +13,6 @@ import {defineComponent} from 'vue'
 import {ConfigProvider} from 'ant-design-vue';
 import HelloWorld from '/@/components/HelloWorld.vue'
 import MyForm from '/@/components/MyForm.vue'
-import UserForm from '/@/app/user/view/UserForm.vue'
 import Test from '/@/app/user/view/UserRegistry.vue'
 
 export default defineComponent({
@@ -23,7 +21,6 @@ export default defineComponent({
     ConfigProvider,
     HelloWorld,
     MyForm,
-    UserForm,
     Test
   },
   setup() {

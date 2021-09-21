@@ -7,7 +7,7 @@
 import Spin from "/@/app/utils/component/Spin.vue";
 import {defineComponent, PropType} from "vue";
 
-const Loading = defineComponent({
+export default defineComponent({
   name: "Loading",
   props: {
     loading: {
@@ -18,5 +18,4 @@ const Loading = defineComponent({
     Spin,
   }
 });
-export default Loading
 </script>

@@ -1,6 +1,7 @@
 export default {
   user:{
-    userName: "Nazwa użytkownika",
+    name: "Nazwa użytkownika",
+    lastName: "Nazwisko",
     password: "Hasło"
   }
 };

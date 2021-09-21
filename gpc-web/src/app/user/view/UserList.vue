@@ -30,12 +30,10 @@
   </div>
 </template>
 <script lang="ts">
-import {CloseOutlined, DownOutlined, FormOutlined, FullscreenExitOutlined, FullscreenOutlined, SmileOutlined} from '@ant-design/icons-vue';
+import {DownOutlined, FormOutlined, SmileOutlined} from '@ant-design/icons-vue';
 import {defineComponent, PropType, reactive, toRef} from 'vue';
 import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/app/test";
-import {createAsyncComponent} from "/@/utils/component/asyncComponent";
-import BasicModal from "/@/utils/modal/BasicModal.vue";
 import {Action} from "/@/utils/service/form/action";
 
 const columns = [
@@ -93,7 +91,6 @@ export default defineComponent({
     };
   },
   components: {
-    UserFormSup: createAsyncComponent(() => import('/@/app/user/view/UserFormSup.vue')),
     SmileOutlined,
     DownOutlined,
     FormOutlined,
@@ -101,10 +98,6 @@ export default defineComponent({
     ATag,
     ADivider,
     ATooltip,
-    FullscreenExitOutlined,
-    CloseOutlined,
-    FullscreenOutlined,
-    BasicModal,
   },
 });
 </script>
