@@ -1,23 +1,22 @@
 <template>
-  <div>{{ formUtil.loading }}</div>
   <FormUtil :form="formUtil">
-    <h1>{{ action }}</h1>
+    <h1>{{ action }} id = {{ formUtil.formState.id }}</h1>
     <a-form-item>
       <a-date-picker v-model:value="formUtil.formState.aDate"/>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formUtil.formState.name" :placeholder="t('user.user.name')"/>
+      <a-input v-model:value="formUtil.formState.name" :placeholder="labels.name"/>
     </a-form-item>
     <a-form-item>
-      <a-input v-model:value="formUtil.formState.lastName" :placeholder="t('user.user.lastName')"/>
+      <a-input v-model:value="formUtil.formState.lastName" :placeholder="labels.lastName"/>
     </a-form-item>
     <a-form-item>
       <a-button
           type="primary"
           html-type="submit"
-          :disabled="formUtil.formState.user === '' || formUtil.formState.password === ''"
+          :disabled="!(formUtil.formState.name  || formUtil.formState.lastName) "
       >
-        Log in
+        {{  labels.save }}
       </a-button>
     </a-form-item>
   </FormUtil>
@@ -61,6 +60,11 @@ export default defineComponent({
   },
   setup(props) {
     const {t} = useI18n();
+    const labels = {
+      name: t('user.user.name'),
+      lastName: t('user.user.lastName'),
+      save: t('user.user.save'),
+    }
     const {action} = toRefs(props)
 
     const {handleSearch, formUtil} = userFormService()
@@ -76,7 +80,7 @@ export default defineComponent({
     return {
       ...props,
       action,
-      t,
+      labels,
       formUtil,
       formState: formUtil.formState,
     };

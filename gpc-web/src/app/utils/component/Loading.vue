@@ -1,21 +1,24 @@
 <template>
-  <Spin v-if="loading"></Spin>
-  <slot v-if="!loading"/>
+  <Spin :show="show">
+    <slot></slot>
+  </Spin>
 </template>
 
 <script lang="ts">
 import Spin from "/@/app/utils/component/Spin.vue";
 import {defineComponent, PropType} from "vue";
+import {ASpin} from "/@/components/antd";
 
 export default defineComponent({
   name: "Loading",
   props: {
-    loading: {
-      type: Boolean as PropType<boolean>
+    show: {
+      type: Boolean as PropType<boolean>,
+      default: true
     }
   },
   components: {
-    Spin,
-  }
+    Spin, ASpin
+  },
 });
 </script>

@@ -12,9 +12,9 @@
     </a-button>
     <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
 
-    <BasicModal title="Formularza" :mija-visible="state.form.visible" @cancel="closeForm">
-      <UserFormSup :actionX="actionForm" :id="state.form.id"></UserFormSup>
-    </BasicModal>
+    <basic-modal title="Formularza" :mija-visible="state.form.visible" @cancel="closeForm">
+      <user-form-sup :actionX="actionForm" :id="state.form.id"></user-form-sup>
+    </basic-modal>
   </div>
 </template>
 

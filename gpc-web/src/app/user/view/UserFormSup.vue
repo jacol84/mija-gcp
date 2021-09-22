@@ -21,8 +21,5 @@ export default defineComponent({
   components: {
     UserForm,
   },
-  setup() {
-    return {};
-  },
 });
 </script>

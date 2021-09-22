@@ -1,14 +1,14 @@
 <template>
-  <loading v-model:loading="form.loading">
+  <Loading :show="form.loading">
     <a-form
-        layout="inline"
+        layout="horizontal"
         :model="form.formState"
         @finish="form.handleFinish"
         @finishFailed="form.handleFinishFailed"
     >
       <slot></slot>
     </a-form>
-  </loading>
+  </Loading>
 </template>
 
 <script lang="ts">
@@ -20,12 +20,11 @@ import Loading from "/@/app/utils/component/Loading.vue";
 
 export default defineComponent({
   name: "FormUtil",
-  components: {Loading},
+  components: {AForm, Loading,},
   props: {
     form: {
       type: Object as PropType<FormUtilDto<any>>
     },
-    components: {AForm, Loading,},
   },
 })
 </script>
