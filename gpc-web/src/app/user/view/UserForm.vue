@@ -81,8 +81,7 @@ export default defineComponent({
       ...props,
       action,
       labels,
-      formUtil,
-      formState: formUtil.formState,
+      formUtil
     };
   },
 });
