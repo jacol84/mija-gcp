@@ -16,7 +16,7 @@
           html-type="submit"
           :disabled="!(formUtil.formState.name  || formUtil.formState.lastName) "
       >
-        {{  labels.save }}
+        {{ labels.save }}
       </a-button>
     </a-form-item>
   </FormUtil>
@@ -67,9 +67,7 @@ export default defineComponent({
     }
     const {action} = toRefs(props)
 
-    const {handleSearch, formUtil} = userFormService()
-
-    handleSearch(props.id || 0);
+    const {formUtil} = userFormService(props.id)
 
     formUtil.handleFinish = (values: FormState) => {
       console.log(values, formUtil);
