@@ -1,13 +1,12 @@
 <template>
   <FormUtil :form="formUtil">
-    <h1>{{ action }} id = {{ formUtil.formState.id }}</h1>
-    <a-form-item>
-      <a-date-picker v-model:value="formUtil.formState.aDate"/>
+    <a-form-item :label="labels.date">
+      <a-date-picker v-model:value="formUtil.formState.aDate" :placeholder="labels.date" style="width: 100%"/>
     </a-form-item>
-    <a-form-item>
+    <a-form-item :label="labels.name">
       <a-input v-model:value="formUtil.formState.name" :placeholder="labels.name"/>
     </a-form-item>
-    <a-form-item>
+    <a-form-item :label="labels.lastName">
       <a-input v-model:value="formUtil.formState.lastName" :placeholder="labels.lastName"/>
     </a-form-item>
     <a-form-item>
@@ -38,6 +37,14 @@ import {Action} from "/@/utils/service/form/action";
 import FormUtil from "/@/app/utils/formUtil/view/FormUtil.vue";
 import {userFormService} from "/@/app/user/service/UserFormService";
 
+const {t} = useI18n();
+const labels = {
+  date: t('user.user.date'),
+  name: t('user.user.name'),
+  lastName: t('user.user.lastName'),
+  save: t('user.user.save'),
+}
+
 export default defineComponent({
   name: 'UserForm',
   props: {
@@ -59,16 +66,12 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-    const {t} = useI18n();
-    const labels = {
-      name: t('user.user.name'),
-      lastName: t('user.user.lastName'),
-      save: t('user.user.save'),
-    }
-    const {action} = toRefs(props)
 
-    const {formUtil} = userFormService(props.id)
+    const {action, id} = toRefs(props)
 
+    const {formUtil} = userFormService(id)
+
+    debugger
     formUtil.handleFinish = (values: FormState) => {
       console.log(values, formUtil);
     };

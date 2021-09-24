@@ -1,5 +1,6 @@
 <template>
-  <a-modal :visible="visible" :title="title" @cancel="onCancel" :footer="null">
+<!--  TODO  FIXME 700px -->
+  <a-modal :visible="visible" :title="title" @cancel="onCancel" :footer="null" style="min-width: 700px">
     <template #closeIcon>
       <div>
         <a-tooltip :title="'component.modal.restore'" placement="bottom" v-if="state.mode" v-on:click="onFull">
@@ -13,7 +14,7 @@
         </a-tooltip>
       </div>
     </template>
-    <slot v-if="visible"></slot>
+    <slot></slot>
   </a-modal>
 </template>
 

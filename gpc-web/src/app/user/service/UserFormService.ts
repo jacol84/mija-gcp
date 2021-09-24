@@ -1,7 +1,8 @@
-import {reactive, UnwrapRef, watchEffect} from "vue";
+import {reactive, Ref, UnwrapRef, watchEffect} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
-import {FormUtilDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
+import {FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
 import {FormState} from "/@/app/user/dto";
+import {UnwrapNestedRefs} from "@vue/reactivity";
 
 function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormState>>, id: number | undefined) {
     if (id) {
@@ -14,25 +15,24 @@ function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormState>>, id: number | 
         };
         handleSearch(id);
     } else {
-        formUtil.loading= false;
+        formUtil.loading = false;
     }
 }
 
-function initVal() {
-    return reactive({
-        loading: true,
-        formState: {}
-    } as FormUtilDto<FormState>);
+function resetValue(formUtil: UnwrapNestedRefs<FormUtilDto<FormState>>) {
+    formUtil.loading = true;
+    formUtil.formState = {};
 }
 
-export function userFormService(id: number | undefined) {
-    const formUtil: UnwrapRef<FormUtilDto<FormState>> = initVal();
+export function userFormService(id: Ref<UnwrapRef<number | undefined>>) {
 
+    const formUtil = reactive(makeDto<FormState>());
+    resetValue(formUtil);
 
     watchEffect(() => {
-        formUtil.loading = true;
-        loadDateForm(formUtil, id)
-    });
+        resetValue(formUtil);
+        loadDateForm(formUtil, id.value)
+    })
 
     return {formUtil}
 }

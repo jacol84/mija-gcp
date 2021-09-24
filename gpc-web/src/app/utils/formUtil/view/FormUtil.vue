@@ -1,10 +1,12 @@
 <template>
   <Loading :show="form.loading">
     <a-form
-        layout="horizontal"
+        layout="vertical"
         :model="form.formState"
-        @finish="form.handleFinish"
+        :label-col="form.labelCol"
+        :wrapper-col="form.wrapperCol"
         @finishFailed="form.handleFinishFailed"
+        @finish="form.handleFinish"
     >
       <slot></slot>
     </a-form>
