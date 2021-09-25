@@ -1,5 +1,5 @@
 <template>
-<!--  TODO  FIXME 700px -->
+  <!--  TODO  FIXME 700px -->
   <a-modal :visible="visible" :title="title" @cancel="onCancel" :footer="null" style="min-width: 700px">
     <template #closeIcon>
       <div>
@@ -14,18 +14,21 @@
         </a-tooltip>
       </div>
     </template>
-    <slot></slot>
+    <div>bbb{{modalForm.id}}</div>
+    <slot :idz="modalForm.id"></slot>
   </a-modal>
 </template>
 
 <script lang="ts">
 import {AModal, ATooltip} from "/@/components/antd";
 import {CloseOutlined, FullscreenExitOutlined, FullscreenOutlined} from "@ant-design/icons-vue";
-import {computed, defineComponent, reactive} from "vue";
+import {computed, defineComponent, PropType, reactive} from "vue";
+import {ModalForm} from "/@/app/test";
 
 export default defineComponent({
   name: "BasicModal",
   props: {
+    modalForm: {type: Object as PropType<ModalForm>},
     mijaVisible: {type: Boolean, default: false},
     title: {type: String, default: "Title"},
     fullMode: {type: Boolean, default: false},

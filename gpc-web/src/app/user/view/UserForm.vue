@@ -52,7 +52,7 @@ export default defineComponent({
       type: Number as PropType<Action>
     },
     id: {
-      type: Number as PropType<number | undefined>,
+      type: Number as PropType<Number | undefined>,
     }
   },
   components: {
@@ -69,9 +69,8 @@ export default defineComponent({
 
     const {action, id} = toRefs(props)
 
-    const {formUtil} = userFormService(id)
+    const formUtil = userFormService(id)
 
-    debugger
     formUtil.handleFinish = (values: FormState) => {
       console.log(values, formUtil);
     };

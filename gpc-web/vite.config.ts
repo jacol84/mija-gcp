@@ -10,6 +10,10 @@ const path = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    build: {
+        // generate manifest.json in outDir
+        manifest: true,
+    },
     server: {
         proxy: {
             '/api': {

@@ -4,9 +4,9 @@ import {FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
 import {FormState} from "/@/app/user/dto";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
-function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormState>>, id: number | undefined) {
+function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormState>>, id: Number | undefined) {
     if (id) {
-        const handleSearch = (id: number) => {
+        const handleSearch = (id: Number) => {
             ajax.getJson<FormState>(`user/${id}`).then(x => {
                     formUtil.loading = false;
                     formUtil.formState = x
@@ -24,7 +24,7 @@ function resetValue(formUtil: UnwrapNestedRefs<FormUtilDto<FormState>>) {
     formUtil.formState = {};
 }
 
-export function userFormService(id: Ref<UnwrapRef<number | undefined>>) {
+export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
 
     const formUtil = reactive(makeDto<FormState>());
     resetValue(formUtil);
@@ -34,5 +34,5 @@ export function userFormService(id: Ref<UnwrapRef<number | undefined>>) {
         loadDateForm(formUtil, id.value)
     })
 
-    return {formUtil}
+    return formUtil
 }

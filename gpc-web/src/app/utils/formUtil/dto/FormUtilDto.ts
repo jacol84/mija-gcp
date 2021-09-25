@@ -4,7 +4,7 @@ export interface FormUtilDto<U> {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
     handleFinishFailed: Fn,
-    formState?: U
+    formState: U
 }
 
 export function makeDto<U>(): FormUtilDto<U> {
@@ -12,5 +12,6 @@ export function makeDto<U>(): FormUtilDto<U> {
         loading: true,
         labelCol: {span: 24},
         wrapperCol: {span: 24},
+        formState:{}
     } as FormUtilDto<U>
 }

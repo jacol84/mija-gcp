@@ -8,29 +8,29 @@ function getIndex(x: UserDto[]) {
 }
 
 function modalAction() {
-    const form: ModalForm = reactive({
+    const modalForm: ModalForm = reactive({
             action: Action.NEW
         }
     )
     const closeForm = () => {
-        form.visible = false;
+        modalForm.visible = false;
     }
     const openForm = (record?: UserDto) => {
-        form.id = record?.id
-        form.visible = true;
+        modalForm.id = record?.id
+        modalForm.visible = true;
     }
-    const actionForm = computed(() => form.id ? Action.NEW : Action.EDIT);
-    return {form, closeForm, openForm, actionForm}
+    const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
+    return {modalForm, closeForm, openForm, actionForm}
 }
 
 export function userRegistryService() {
-    const {form, closeForm, openForm, actionForm} = modalAction()
+    const {modalForm, closeForm, openForm, actionForm} = modalAction()
     const state: StateModel = reactive({
         search: "a",
         myData: "zzzz",
         test: false,
         list: undefined,
-        form: form
+        modalForm: modalForm
     });
 
     const myCom = computed(() => "jacek" + state.search + new Date());

@@ -12,8 +12,8 @@
     </a-button>
     <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
 
-    <basic-modal title="Formularza" :mija-visible="state.form.visible" @cancel="closeForm">
-      <user-form-sup :actionX="actionForm" :id="state.form.id"></user-form-sup>
+    <basic-modal title="Formularza" :modal-form="state.modalForm" :mija-visible="state.modalForm.visible" @cancel="closeForm">
+      <user-form-sup :actionX="actionForm" :id="state.modalForm.id"></user-form-sup>
     </basic-modal>
   </div>
 </template>
@@ -24,7 +24,6 @@ import {defineComponent} from "vue";
 import {PlusSquareOutlined} from '@ant-design/icons-vue';
 import {AButton, AInput} from "/@/components/antd";
 import {createAsyncComponent} from "/@/utils/component/asyncComponent";
-import {Button} from "ant-design-vue";
 import {userRegistryService} from "/@/app/user/service/UserRegistryService";
 import BasicModal from "/@/utils/modal/BasicModal.vue";
 
@@ -32,7 +31,7 @@ import BasicModal from "/@/utils/modal/BasicModal.vue";
 const test = defineComponent({
   name: "Test",
   components: {
-    Button: Button,
+    Button: AButton,
     AInput: AInput,
     PlusSquareOutlined,
     AButton,

@@ -10,7 +10,7 @@
 <script lang="ts">
 import plPL from 'ant-design-vue/es/locale/pl_PL';
 import {defineComponent} from 'vue'
-import {ConfigProvider} from 'ant-design-vue';
+import ConfigProvider from 'ant-design-vue/lib/config-provider';
 import HelloWorld from '/@/components/HelloWorld.vue'
 import MyForm from '/@/components/MyForm.vue'
 import Test from '/@/app/user/view/UserRegistry.vue'

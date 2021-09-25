@@ -11,7 +11,7 @@ export interface ModalForm {
 }
 
 export interface StateModel {
-    form: ModalForm,
+    modalForm: ModalForm,
     test: boolean,
     search: string,
     myData: string,

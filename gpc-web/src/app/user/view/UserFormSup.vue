@@ -1,4 +1,5 @@
 <template>
+  <div>{{idz}}aaaa</div>
   <UserForm :id="id" :action="actionX"></UserForm>
 </template>
 
@@ -16,7 +17,10 @@ export default defineComponent({
     },
     id: {
       type: Number as PropType<Number | undefined>,
-    }
+    },
+    idz: {
+      type: Number as PropType<Number | undefined>,
+    },
   },
   components: {
     UserForm,

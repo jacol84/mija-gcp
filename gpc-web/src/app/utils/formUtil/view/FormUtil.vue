@@ -25,7 +25,8 @@ export default defineComponent({
   components: {AForm, Loading,},
   props: {
     form: {
-      type: Object as PropType<FormUtilDto<any>>
+      type: Object as PropType<FormUtilDto<any>>,
+      required: true,
     },
   },
 })
