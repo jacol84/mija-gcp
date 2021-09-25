@@ -1,34 +1,16 @@
-import {
-    Button as AButton,
-    Col as ACol,
-    DatePicker as ADatePicker,
-    Divider as ADivider,
-    Form as AForm,
-    Input as AInput,
-    Row as ARow,
-    Spin as ASpin,
-    Table as ATable,
-    Tag as ATag,
-    Tooltip as ATooltip,
-    Modal as AModal,
-} from 'ant-design-vue';
-// import {createAsyncComponent} from "/@/utils/component/asyncComponent";
+import AButton from 'ant-design-vue/lib/button/index';
+import ACol from 'ant-design-vue/lib/col';
+import ADatePicker from 'ant-design-vue/lib/date-picker/index';
+import ADivider from 'ant-design-vue/lib/divider';
+import AForm from 'ant-design-vue/lib/form';
+import AInput from 'ant-design-vue/lib/input';
+import ARow from 'ant-design-vue/lib/row';
+import ASpin from 'ant-design-vue/lib/spin';
+import ATable from 'ant-design-vue/lib/table';
+import ATag from 'ant-design-vue/lib/tag';
+import ATooltip from 'ant-design-vue/lib/tooltip';
+import AModal from 'ant-design-vue/lib/modal';
 
-
-// const ZZZ = createAsyncComponent(() => import('ant-design-vue'))
-//
-// const {
-//     Button as AButton,
-//     Col as ACol,
-//     DatePicker as ADatePicker,
-//     Divider as ADivider,
-//     Form as AForm,
-//     Input as AInput,
-//     Row as ARow,
-//     Spin as ASpin,
-//     Table as ATable,
-//     Tag as ATag
-// } =ZZZ;
 const AFormItem = AForm.Item
 const AButtonGroup = AButton.Group
 const AInputPassword = AInput.Password
