@@ -14,8 +14,9 @@
         </a-tooltip>
       </div>
     </template>
-    <div>bbb{{modalForm.id}}</div>
-    <slot :idz="modalForm.id"></slot>
+<!--    <div>bbb{{ modalForm.action }}</div>-->
+<!--    <slot :idz="modalForm.id"></slot>-->
+    <slot></slot>
   </a-modal>
 </template>
 
@@ -28,7 +29,10 @@ import {ModalForm} from "/@/app/test";
 export default defineComponent({
   name: "BasicModal",
   props: {
-    modalForm: {type: Object as PropType<ModalForm>},
+    modalForm: {
+      type: Object as PropType<ModalForm>,
+      require: true
+    },
     mijaVisible: {type: Boolean, default: false},
     title: {type: String, default: "Title"},
     fullMode: {type: Boolean, default: false},
