@@ -1,6 +1,6 @@
 import {Moment} from "moment";
 
-export interface FormState {
+export interface FormUserState {
     id?: number,
     name?: string,
     lastName?: string,

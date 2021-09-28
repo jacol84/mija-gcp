@@ -1,5 +1,4 @@
 <template>
-  <div>{{idz}}aaaa</div>
   <UserForm :id="id" :action="actionX"></UserForm>
 </template>
 

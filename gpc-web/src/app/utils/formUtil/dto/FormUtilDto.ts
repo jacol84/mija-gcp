@@ -1,6 +1,6 @@
 export interface FormUtilDto<U> {
     loading?: boolean,
-    handleFinish: Fn,
+    onSubmit: Fn,
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
     handleFinishFailed: Fn,

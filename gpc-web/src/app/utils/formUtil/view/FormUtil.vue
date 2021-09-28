@@ -6,7 +6,7 @@
         :label-col="form.labelCol"
         :wrapper-col="form.wrapperCol"
         @finishFailed="form.handleFinishFailed"
-        @finish="form.handleFinish"
+        @finish="form.onSubmit"
     >
       <slot></slot>
     </a-form>

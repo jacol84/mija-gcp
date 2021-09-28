@@ -1,7 +1,7 @@
 <template>
   <FormUtil :form="formUtil">
-    <a-form-item :label="labels.date">
-      <a-date-picker v-model:value="formUtil.formState.aDate" :placeholder="labels.date" style="width: 100%"/>
+    <a-form-item :label="labels.dateAdd">
+      <a-date-picker v-model:value="formUtil.formState.aDate" :placeholder="labels.dateAdd" style="width: 100%"/>
     </a-form-item>
     <a-form-item :label="labels.name">
       <a-input v-model:value="formUtil.formState.name" :placeholder="labels.name"/>
@@ -32,14 +32,14 @@ import {AButton, ADatePicker, AFormItem, AInput, AInputPassword} from "/@/compon
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
-import {FormState} from "/@/app/user/dto";
+import {FormUserState} from "/@/app/user/dto";
 import {Action} from "/@/utils/service/form/action";
 import FormUtil from "/@/app/utils/formUtil/view/FormUtil.vue";
 import {userFormService} from "/@/app/user/service/UserFormService";
 
 const {t} = useI18n();
 const labels = {
-  date: t('user.user.date'),
+  dateAdd: t('user.user.dateAdd'),
   name: t('user.user.name'),
   lastName: t('user.user.lastName'),
   save: t('user.user.save'),
@@ -71,10 +71,8 @@ export default defineComponent({
 
     const formUtil = userFormService(id)
 
-    formUtil.handleFinish = (values: FormState) => {
-      console.log(values, formUtil);
-    };
-    formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
+
+    formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.log(errors);
     };
     return {
