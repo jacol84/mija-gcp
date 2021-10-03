@@ -1,5 +1,5 @@
 <template>
-  <UserForm :id="id" :action="actionX"></UserForm>
+  <UserForm :id="id" :action="actionX" :modal-form-close="modalFormClose"></UserForm>
 </template>
 
 
@@ -16,6 +16,9 @@ export default defineComponent({
     },
     id: {
       type: Number as PropType<Number | undefined>,
+    },
+    modalFormClose: {
+      type: Function as PropType<Function>,
     },
     idz: {
       type: Number as PropType<Number | undefined>,

@@ -53,7 +53,10 @@ export default defineComponent({
     },
     id: {
       type: Number as PropType<Number | undefined>,
-    }
+    },
+    modalFormClose: {
+      type: Function as PropType<Function>,
+    },
   },
   components: {
     FormUtil,
@@ -67,9 +70,9 @@ export default defineComponent({
   },
   setup(props) {
 
-    const {action, id} = toRefs(props)
+    const {action, id, modalFormClose} = toRefs(props)
 
-    const formUtil = userFormService(id)
+    const formUtil = userFormService(id, modalFormClose.value)
 
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {

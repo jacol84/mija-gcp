@@ -30,7 +30,7 @@ function onCreate(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
     ajax.sendPost<FormUserState>('user', formUtil.formState).then(x => {
             formUtil.loading = false;
             console.log(x, formUtil)
-
+            formUtil.close()
             //FIXME what next
             //when error
             //when valid
@@ -43,6 +43,7 @@ function onUpdate(id: Number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserSta
 
     ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState).then(x => {
             formUtil.loading = false;
+            formUtil.close()
             console.log(x, formUtil)
             //FIXME what next
             //when error
@@ -58,7 +59,7 @@ function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Nu
     }
 }
 
-export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
+export function userFormService(id: Ref<UnwrapRef<Number | undefined>>, fn: Function) {
 
     const formUtil = reactive(makeDto<FormUserState>());
     resetValue(formUtil);
@@ -68,6 +69,7 @@ export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
         resetValue(formUtil);
         loadDateForm(formUtil, id.value);
         formUtil.onSubmit = onSubmit(formUtil, id.value);
+        formUtil.close = fn
     })
 
     return formUtil
