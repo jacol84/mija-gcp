@@ -25,31 +25,37 @@ function resetValue(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
 }
 
 function onCreate(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
-    return () => {
-        console.log(JSON.stringify(formUtil.formState));
+    console.log(JSON.stringify(formUtil.formState));
 
-        ajax.sendPost<FormUserState>('user', formUtil.formState).then(x => {
-                console.log(x)
-                //FIXME what next
-                //when error
-                //when valid
-            }
-        );
-    };
+    ajax.sendPost<FormUserState>('user', formUtil.formState).then(x => {
+            formUtil.loading = false;
+            console.log(x, formUtil)
+
+            //FIXME what next
+            //when error
+            //when valid
+        }
+    );
 }
 
 function onUpdate(id: Number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
-    return () => {
-        console.log(JSON.stringify(formUtil.formState));
+    console.log(JSON.stringify(formUtil.formState));
 
-        ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState).then(x => {
-                console.log(x)
-                //FIXME what next
-                //when error
-                //when valid
-            }
-        );
-    };
+    ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState).then(x => {
+            formUtil.loading = false;
+            console.log(x, formUtil)
+            //FIXME what next
+            //when error
+            //when valid
+        }
+    );
+}
+
+function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Number | undefined) {
+    return () => {
+        formUtil.loading = true;
+        id ? onUpdate(id, formUtil) : onCreate(formUtil);
+    }
 }
 
 export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
@@ -60,8 +66,8 @@ export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
 
     watchEffect(() => {
         resetValue(formUtil);
-        loadDateForm(formUtil, id.value)
-        formUtil.onSubmit = id.value ? onUpdate(id.value, formUtil) : onCreate(formUtil);
+        loadDateForm(formUtil, id.value);
+        formUtil.onSubmit = onSubmit(formUtil, id.value);
     })
 
     return formUtil
