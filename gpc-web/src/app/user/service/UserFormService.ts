@@ -57,11 +57,11 @@ export function userFormService(id: Ref<UnwrapRef<Number | undefined>>) {
     const formUtil = reactive(makeDto<FormUserState>());
     resetValue(formUtil);
 
-    formUtil.onSubmit = id.value ? onUpdate(id.value, formUtil) : onCreate(formUtil);
 
     watchEffect(() => {
         resetValue(formUtil);
         loadDateForm(formUtil, id.value)
+        formUtil.onSubmit = id.value ? onUpdate(id.value, formUtil) : onCreate(formUtil);
     })
 
     return formUtil
