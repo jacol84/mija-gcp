@@ -36,6 +36,7 @@ import {FormUserState} from "/@/app/user/dto";
 import {Action} from "/@/utils/service/form/action";
 import FormUtil from "/@/app/utils/formUtil/view/FormUtil.vue";
 import {userFormService} from "/@/app/user/service/UserFormService";
+import {FormExt} from "/@/app/utils/formUtil/dto/FormUtilDto";
 
 const {t} = useI18n();
 const labels = {
@@ -54,8 +55,8 @@ export default defineComponent({
     id: {
       type: Number as PropType<Number | undefined>,
     },
-    modalFormClose: {
-      type: Function as PropType<Function>,
+    formExt: {
+      type: Object as PropType<FormExt>,
     },
   },
   components: {
@@ -69,11 +70,8 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-
-    const {action, id, modalFormClose} = toRefs(props)
-
-    const formUtil = userFormService(id, modalFormClose.value)
-
+    const {action, id, formExt} = toRefs(props)
+    const formUtil = userFormService(id, formExt.value)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.log(errors);

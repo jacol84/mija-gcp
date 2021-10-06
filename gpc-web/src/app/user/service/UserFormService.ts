@@ -1,6 +1,6 @@
 import {reactive, Ref, UnwrapRef, watchEffect} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
-import {FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
+import {FormExt, FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
 import {FormUserState} from "/@/app/user/dto";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
@@ -59,17 +59,14 @@ function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Nu
     }
 }
 
-export function userFormService(id: Ref<UnwrapRef<Number | undefined>>, fn: Function) {
+export function userFormService(id: Ref<UnwrapRef<Number | undefined>>, formExt: FormExt) {
+    const formUtil = reactive(makeDto<FormUserState>(formExt));
 
-    const formUtil = reactive(makeDto<FormUserState>());
     resetValue(formUtil);
-
-
     watchEffect(() => {
         resetValue(formUtil);
         loadDateForm(formUtil, id.value);
         formUtil.onSubmit = onSubmit(formUtil, id.value);
-        formUtil.close = fn
     })
 
     return formUtil

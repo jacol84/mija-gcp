@@ -13,7 +13,7 @@
     <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
 
     <basic-modal title="Formularza" :modal-form="state.modalForm" :mija-visible="state.modalForm.visible" @cancel="closeForm">
-      <user-form-sup :actionX="actionForm" :id="state.modalForm.id" :modal-form-close="closeForm"></user-form-sup>
+      <user-form-sup :actionX="actionForm" :id="state.modalForm.id" :form-ext="formExt"></user-form-sup>
     </basic-modal>
   </div>
 </template>
@@ -40,7 +40,13 @@ const test = defineComponent({
     UserList: createAsyncComponent(() => import('/@/app/user/view/UserList.vue')),
   },
   setup: function () {
-    return {...userRegistryService()};
+
+    const userRegistryService1 = userRegistryService();
+    console.log(userRegistryService1.formExt)
+    console.log(typeof userRegistryService1.formExt  )
+
+
+    return {...userRegistryService1};
   },
 })
 

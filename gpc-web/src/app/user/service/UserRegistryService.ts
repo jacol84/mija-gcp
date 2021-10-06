@@ -2,6 +2,7 @@ import {ModalForm, StateModel, UserDto} from "/@/app/test";
 import {computed, reactive} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {Action} from "/@/utils/service/form/action";
+import {FormExt} from "/@/app/utils/formUtil/dto/FormUtilDto";
 
 function getIndex(x: UserDto[]) {
     return Math.floor(Math.random() * x.length);
@@ -20,7 +21,7 @@ function modalAction() {
         modalForm.visible = true;
     }
     const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
-    return {modalForm, closeForm, openForm, actionForm}
+    return {modalForm, actionForm, closeForm, openForm}
 }
 
 export function userRegistryService() {
@@ -32,7 +33,9 @@ export function userRegistryService() {
         list: undefined,
         modalForm: modalForm
     });
-
+    const formExt: FormExt = {
+        close: closeForm
+    };
     const myCom = computed(() => "jacek" + state.search + new Date());
 
     const handleSearch = () => {
@@ -48,9 +51,10 @@ export function userRegistryService() {
         openForm(undefined);
     };
 
+    console.log(formExt, typeof formExt)
     return {
-        state, myCom, closeForm, openForm,
+        state, myCom, formExt, actionForm, openForm,
         handleAdd,
-        handleSearch, actionForm,
+        handleSearch,
     }
 }
