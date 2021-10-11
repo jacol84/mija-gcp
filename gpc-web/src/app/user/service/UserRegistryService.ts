@@ -27,8 +27,8 @@ function modalAction() {
 export function userRegistryService() {
     const {modalForm, closeForm, openForm, actionForm} = modalAction()
     const state: StateModel = reactive({
-        search: "a",
-        myData: "zzzz",
+        search: "",
+        myData: "",
         test: false,
         list: undefined,
         modalForm: modalForm
@@ -51,7 +51,6 @@ export function userRegistryService() {
         openForm(undefined);
     };
 
-    console.log(formExt, typeof formExt)
     return {
         state, myCom, formExt, actionForm, openForm,
         handleAdd,

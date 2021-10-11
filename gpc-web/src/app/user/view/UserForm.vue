@@ -74,7 +74,7 @@ export default defineComponent({
     const formUtil = userFormService(id, formExt.value)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
-      console.log(errors);
+      console.error(errors);
     };
     return {
       ...props,

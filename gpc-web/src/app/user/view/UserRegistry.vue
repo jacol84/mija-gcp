@@ -40,13 +40,8 @@ const test = defineComponent({
     UserList: createAsyncComponent(() => import('/@/app/user/view/UserList.vue')),
   },
   setup: function () {
-
-    const userRegistryService1 = userRegistryService();
-    console.log(userRegistryService1.formExt)
-    console.log(typeof userRegistryService1.formExt  )
-
-
-    return {...userRegistryService1};
+    const dto = userRegistryService();
+    return {...dto};
   },
 })
 

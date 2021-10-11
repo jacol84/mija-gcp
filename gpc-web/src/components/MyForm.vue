@@ -76,7 +76,6 @@ export default defineComponent({
 
     onMounted(() => {
       let value = el.value;
-      console.log()
       value.focus()
     });
 
