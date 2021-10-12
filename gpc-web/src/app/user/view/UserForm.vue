@@ -57,6 +57,7 @@ export default defineComponent({
     },
     formExt: {
       type: Object as PropType<FormExt>,
+      require: true,
     },
   },
   components: {
@@ -71,7 +72,7 @@ export default defineComponent({
   },
   setup(props) {
     const {action, id, formExt} = toRefs(props)
-    const formUtil = userFormService(id, formExt.value)
+    const formUtil = userFormService(id, formExt.value || {} as FormExt)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.error(errors);
