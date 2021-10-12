@@ -17,7 +17,8 @@ function modalAction() {
         modalForm.visible = false;
     }
     const openForm = (record?: UserDto) => {
-        modalForm.id = record?.id
+        modalForm.opening = new Date().getTime();
+        modalForm.id = record?.id;
         modalForm.visible = true;
     }
     const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
