@@ -10,9 +10,9 @@
       </template>
       Add
     </a-button>
-    <UserList :list="state.list" @openForm="openForm" :openFormXYZ="openForm"></UserList>
+    <UserList :list="state.list" :openForm="openForm"></UserList>
 
-    <basic-modal title="Formularza" :modal-form="state.modalForm" :mija-visible="state.modalForm.visible" @cancel="closeForm">
+    <basic-modal :dto="basicModalDto">
       <user-form-sup :actionX="actionForm" :id="state.modalForm.id" :form-ext="formExt"></user-form-sup>
     </basic-modal>
   </div>
@@ -27,6 +27,10 @@ import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import {userRegistryService} from "/@/app/user/service/UserRegistryService";
 import BasicModal from "/@/utils/modal/BasicModal.vue";
 
+const labels = {
+  //TODO TRANSLATE
+  title:"Formularza"
+}
 
 const test = defineComponent({
   name: "Test",
@@ -41,7 +45,7 @@ const test = defineComponent({
   },
   setup: function () {
     const dto = userRegistryService();
-    return {...dto};
+    return {...dto, labels};
   },
 })
 

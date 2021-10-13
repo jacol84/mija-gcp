@@ -3,30 +3,32 @@ import {computed, reactive} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {Action} from "/@/utils/service/form/action";
 import {FormExt} from "/@/app/utils/formUtil/dto/FormUtilDto";
+import {BasicModalDto, creatorDto} from "/@/utils/modal/BasicModalDto";
+import {UnwrapNestedRefs} from "@vue/reactivity";
 
 function getIndex(x: UserDto[]) {
     return Math.floor(Math.random() * x.length);
 }
 
-function modalAction() {
+function modalAction(basicModalDto: UnwrapNestedRefs<BasicModalDto>) {
     const modalForm: ModalForm = reactive({
             action: Action.NEW
         }
     )
-    const closeForm = () => {
-        modalForm.visible = false;
-    }
     const openForm = (record?: UserDto) => {
+        basicModalDto.visible = true
         modalForm.opening = new Date().getTime();
         modalForm.id = record?.id;
-        modalForm.visible = true;
     }
     const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
-    return {modalForm, actionForm, closeForm, openForm}
+    return {modalForm, actionForm, openForm}
 }
 
+
 export function userRegistryService() {
-    const {modalForm, closeForm, openForm, actionForm} = modalAction()
+    const basicModalDto = reactive(creatorDto());
+
+    const {modalForm, openForm, actionForm} = modalAction(basicModalDto)
     const state: StateModel = reactive({
         search: "",
         myData: "",
@@ -35,9 +37,10 @@ export function userRegistryService() {
         modalForm: modalForm
     });
     const formExt: FormExt = {
-        close: closeForm
+        close: () => {
+            basicModalDto.visible = false
+        }
     };
-    const myCom = computed(() => "jacek" + state.search + new Date());
 
     const handleSearch = () => {
         ajax.getJson<UserDto[]>("user").then(x => {
@@ -49,11 +52,11 @@ export function userRegistryService() {
     };
 
     const handleAdd = () => {
-        openForm(undefined);
+        openForm();
     };
 
     return {
-        state, myCom, formExt, actionForm, openForm,
+        state, formExt, actionForm, openForm, basicModalDto,
         handleAdd,
         handleSearch,
     }

@@ -8,7 +8,7 @@
       </template>
       <template #action="{ record }">
         <span>
-          <a v-on:click="openForm(record)">
+          <a v-on:click="openFormAction(record)">
             <a-tooltip>
               <template #title>Edytuj2</template>
               <FormOutlined/>
@@ -34,7 +34,6 @@ import {DownOutlined, FormOutlined, SmileOutlined} from '@ant-design/icons-vue';
 import {defineComponent, PropType, reactive, toRef} from 'vue';
 import {ADivider, ATable, ATag, ATooltip} from "/@/components/antd";
 import {StateList, UserDto} from "/@/app/test";
-import {Action} from "/@/utils/service/form/action";
 
 const columns = [
   {
@@ -67,24 +66,23 @@ export default defineComponent({
       type: Array as () => Array<UserDto>,
       default: []
     },
-    openFormXYZ: {
+    openForm: {
       type: Function as PropType<(record?: UserDto) => undefined>,
       require: true,
     },
   },
-  emits: ["openForm"],
   setup(props) {
-    const {openFormXYZ} = props
+    const {openForm} = props
     const state: StateList = reactive({visible: false});
     const list = toRef(props, 'list')
 
-    const openForm = (record: UserDto) => {
-      if (openFormXYZ != undefined) {
-        openFormXYZ(record)
+    const openFormAction = (record: UserDto) => {
+      if (openForm != undefined) {
+        openForm(record)
       }
     }
     return {
-      openForm,
+      openFormAction,
       list,
       columns,
       state,

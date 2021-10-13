@@ -6,7 +6,6 @@ export interface Dto {
 
 export interface ModalForm {
     opening?: number;
-    visible?: boolean,
     id?: Number,
     action: Action,
 }
