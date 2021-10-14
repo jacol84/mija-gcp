@@ -27,11 +27,6 @@ import {createAsyncComponent} from "/@/utils/component/asyncComponent";
 import {userRegistryService} from "/@/app/user/service/UserRegistryService";
 import BasicModal from "/@/utils/modal/BasicModal.vue";
 
-const labels = {
-  //TODO TRANSLATE
-  title:"Formularza"
-}
-
 const test = defineComponent({
   name: "Test",
   components: {
@@ -45,7 +40,7 @@ const test = defineComponent({
   },
   setup: function () {
     const dto = userRegistryService();
-    return {...dto, labels};
+    return {...dto};
   },
 })
 
