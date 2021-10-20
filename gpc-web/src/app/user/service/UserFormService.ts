@@ -1,8 +1,9 @@
-import {reactive, Ref, UnwrapRef, watchEffect} from "vue";
+import {reactive, Ref, UnwrapRef, watch, watchEffect} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {FormExt, FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
 import {FormUserState} from "/@/app/user/dto";
 import {UnwrapNestedRefs} from "@vue/reactivity";
+import {ModalForm} from "/@/app/test";
 
 function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormUserState>>, id: Number | undefined) {
     if (id) {
@@ -57,14 +58,20 @@ function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Nu
     }
 }
 
-export function userFormService(id: Ref<UnwrapRef<Number | undefined>>, formExt: FormExt) {
+export function userFormService(modalForm?: ModalForm | undefined, formExt?: FormExt | undefined, opening: Ref<UnwrapRef<number|undefined>> | undefined) {
     const formUtil = reactive(makeDto<FormUserState>(formExt));
     resetValue(formUtil);
 
     watchEffect(() => {
+        console.log(opening)
         resetValue(formUtil);
-        loadDateForm(formUtil, id.value);
-        formUtil.onSubmit = onSubmit(formUtil, id.value);
+        loadDateForm(formUtil, modalForm?.id);
+        formUtil.onSubmit = onSubmit(formUtil, modalForm?.id);
+    }, {
+        onTrigger(e) {
+            console.log(e)
+            debugger
+        }
     })
 
     return formUtil

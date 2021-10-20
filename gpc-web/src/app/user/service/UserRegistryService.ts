@@ -21,14 +21,14 @@ function modalAction(basicModalDto: UnwrapNestedRefs<BasicModalDto>) {
         modalForm.id = record?.id;
     }
     const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
-    return {modalForm, actionForm, openForm}
+    return {modalForm, openForm}
 }
 
 
 export function userRegistryService() {
     const basicModalDto = reactive(creatorDto());
 
-    const {modalForm, openForm, actionForm} = modalAction(basicModalDto)
+    const {modalForm, openForm} = modalAction(basicModalDto)
     const state: StateModel = reactive({
         search: "",
         myData: "",
@@ -56,7 +56,7 @@ export function userRegistryService() {
     };
 
     return {
-        state, formExt, actionForm, openForm, basicModalDto,
+        state, formExt, openForm, basicModalDto,
         handleAdd,
         handleSearch,
     }

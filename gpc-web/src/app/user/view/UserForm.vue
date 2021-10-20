@@ -27,16 +27,16 @@
 
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
-import {defineComponent, PropType, toRefs} from 'vue';
+import {defineComponent, PropType, ref, toRefs} from 'vue';
 import {AButton, ADatePicker, AFormItem, AInput, AInputPassword} from "/@/components/antd";
 
 import 'moment/dist/locale/pl';
 import {useI18n} from "/@/hooks/useI18n";
 import {FormUserState} from "/@/app/user/dto";
-import {Action} from "/@/utils/service/form/action";
 import FormUtil from "/@/app/utils/formUtil/view/FormUtil.vue";
 import {userFormService} from "/@/app/user/service/UserFormService";
 import {FormExt} from "/@/app/utils/formUtil/dto/FormUtilDto";
+import {ModalForm} from "/@/app/test";
 
 const {t} = useI18n();
 const labels = {
@@ -49,10 +49,10 @@ const labels = {
 export default defineComponent({
   name: 'UserForm',
   props: {
-    action: {
-      type: Number as PropType<Action>
+    modalForm: {
+      type: Object as PropType<ModalForm>,
     },
-    id: {
+    time: {
       type: Number as PropType<Number | undefined>,
     },
     formExt: {
@@ -71,15 +71,13 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-    const {action, id, formExt} = toRefs(props)
-    const formUtil = userFormService(id, formExt.value || {} as FormExt)
+    const {opening} = toRefs(props.modalForm || {opening: 0});
+    const formUtil = userFormService(props.modalForm, props.formExt, opening)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.error(errors);
     };
     return {
-      ...props,
-      action,
       labels,
       formUtil
     };

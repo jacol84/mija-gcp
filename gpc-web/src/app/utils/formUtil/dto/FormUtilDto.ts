@@ -12,12 +12,12 @@ export interface FormUtilDto<U> {
     formState: U
 }
 
-export function makeDto<U>(formExt: FormExt): FormUtilDto<U> {
+export function makeDto<U>(formExt?: FormExt): FormUtilDto<U> {
     return {
         loading: true,
         labelCol: {span: 24},
         wrapperCol: {span: 24},
         formState: {},
-        close: formExt.close
+        close: formExt?.close ? formExt?.close : () => {}
     } as FormUtilDto<U>
 }

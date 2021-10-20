@@ -13,7 +13,7 @@
     <UserList :list="state.list" :openForm="openForm"></UserList>
 
     <basic-modal :dto="basicModalDto">
-      <user-form-sup :actionX="actionForm" :id="state.modalForm.id" :form-ext="formExt"></user-form-sup>
+      <user-form-sup :modalForm="state.modalForm" :form-ext="formExt"></user-form-sup>
     </basic-modal>
   </div>
 </template>
