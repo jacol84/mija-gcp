@@ -58,12 +58,13 @@ function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Nu
     }
 }
 
-export function userFormService(modalForm?: ModalForm | undefined, formExt?: FormExt | undefined, opening: Ref<UnwrapRef<number|undefined>> | undefined) {
+export function userFormService(modalForm?: ModalForm , formExt?: FormExt , opening?: Number ) {
     const formUtil = reactive(makeDto<FormUserState>(formExt));
+    const number = reactive({opening});
     resetValue(formUtil);
 
     watchEffect(() => {
-        console.log(opening)
+        console.log(number)
         resetValue(formUtil);
         loadDateForm(formUtil, modalForm?.id);
         formUtil.onSubmit = onSubmit(formUtil, modalForm?.id);

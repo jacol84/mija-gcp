@@ -51,9 +51,11 @@ export default defineComponent({
   props: {
     modalForm: {
       type: Object as PropType<ModalForm>,
+      require: true,
     },
     time: {
       type: Number as PropType<Number | undefined>,
+      require: true,
     },
     formExt: {
       type: Object as PropType<FormExt>,
@@ -71,13 +73,14 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-    const {opening} = toRefs(props.modalForm || {opening: 0});
-    const formUtil = userFormService(props.modalForm, props.formExt, opening)
+
+    const formUtil = userFormService(props.modalForm, props.formExt, props.time)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.error(errors);
     };
     return {
+      time:props.time,
       labels,
       formUtil
     };
