@@ -15,7 +15,7 @@ export interface StateModel {
     test: boolean,
     search: string,
     myData: string,
-    list: UserDto[] | undefined | null
+    list: UserDto[] | undefined
 }
 
 export interface StateList {

@@ -1,5 +1,5 @@
 import {ModalForm, StateModel, UserDto} from "/@/app/test";
-import {computed, reactive} from "vue";
+import {reactive} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {Action} from "/@/utils/service/form/action";
 import {FormExt} from "/@/app/utils/formUtil/dto/FormUtilDto";
@@ -11,7 +11,7 @@ function getIndex(x: UserDto[]) {
 }
 
 function modalAction(basicModalDto: UnwrapNestedRefs<BasicModalDto>) {
-    const modalForm: ModalForm = reactive({
+    const modalForm: UnwrapNestedRefs<ModalForm> = reactive({
             action: Action.NEW
         }
     )
@@ -20,7 +20,6 @@ function modalAction(basicModalDto: UnwrapNestedRefs<BasicModalDto>) {
         modalForm.opening = new Date().getTime();
         modalForm.id = record?.id;
     }
-    const actionForm = computed(() => modalForm.id ? Action.NEW : Action.EDIT);
     return {modalForm, openForm}
 }
 
