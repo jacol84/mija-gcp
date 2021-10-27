@@ -1,14 +1,14 @@
-import {reactive, Ref, UnwrapRef, watch, watchEffect} from "vue";
+import {reactive, UnwrapRef, watch} from "vue";
 import ajax from "/@/utils/service/ajax/ajax";
 import {FormExt, FormUtilDto, makeDto} from "/@/app/utils/formUtil/dto/FormUtilDto";
 import {FormUserState} from "/@/app/user/dto";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 import {ModalForm} from "/@/app/test";
 
-function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormUserState>>, id: Number | undefined) {
+function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormUserState>>, id?: number ) {
     if (id) {
-        const handleSearch = (id: Number) => {
-            ajax.getJson<FormUserState>(`user/${id}`).then(x => {
+        const handleSearch = (idz: number) => {
+            ajax.getJson<FormUserState>(`user/${idz}`).then(x => {
                     formUtil.loading = false;
                     formUtil.formState = x
                 }
@@ -38,7 +38,7 @@ function onCreate(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
     );
 }
 
-function onUpdate(id: Number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
+function onUpdate(id: number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
     console.log(JSON.stringify(formUtil.formState));
 
     ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState).then(x => {
@@ -51,29 +51,21 @@ function onUpdate(id: Number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserSta
     );
 }
 
-function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id: Number | undefined) {
+function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id?: number) {
     return () => {
         formUtil.loading = true;
         id ? onUpdate(id, formUtil) : onCreate(formUtil);
     }
 }
 
-export function userFormService(modalForm?: ModalForm , formExt?: FormExt , opening?: Number ) {
+export function userFormService(modalForm?: ModalForm | undefined, formExt?: FormExt | undefined) {
     const formUtil = reactive(makeDto<FormUserState>(formExt));
-    const number = reactive({opening});
     resetValue(formUtil);
-
-    watchEffect(() => {
-        console.log(number)
+    watch(() => modalForm?.opening, (y, x) => {
         resetValue(formUtil);
         loadDateForm(formUtil, modalForm?.id);
         formUtil.onSubmit = onSubmit(formUtil, modalForm?.id);
-    }, {
-        onTrigger(e) {
-            console.log(e)
-            debugger
-        }
-    })
+    });
 
-    return formUtil
+    return {formUtil}
 }

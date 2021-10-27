@@ -1,4 +1,6 @@
 <template>
+<!--  <div>UserForm.vue &#45;&#45; {{ modalForm.opening }} {{ JSON.stringify(modalForm) }}</div>-->
+<!--  <div>UserForm.vue - time &#45;&#45; {{ time }}</div>-->
   <FormUtil :form="formUtil">
     <a-form-item :label="labels.dateAdd">
       <a-date-picker v-model:value="formUtil.formState.aDate" :placeholder="labels.dateAdd" style="width: 100%"/>
@@ -27,7 +29,7 @@
 
 import {LockOutlined, UserOutlined} from '@ant-design/icons-vue';
 import {ValidateErrorEntity} from 'ant-design-vue/es/form/interface';
-import {defineComponent, PropType, ref, toRefs} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import {AButton, ADatePicker, AFormItem, AInput, AInputPassword} from "/@/components/antd";
 
 import 'moment/dist/locale/pl';
@@ -53,10 +55,6 @@ export default defineComponent({
       type: Object as PropType<ModalForm>,
       require: true,
     },
-    time: {
-      type: Number as PropType<Number | undefined>,
-      require: true,
-    },
     formExt: {
       type: Object as PropType<FormExt>,
       require: true,
@@ -73,14 +71,12 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-
-    const formUtil = userFormService(props.modalForm, props.formExt, props.time)
+    const {formUtil } = userFormService(props.modalForm, props.formExt)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.error(errors);
     };
     return {
-      time:props.time,
       labels,
       formUtil
     };
