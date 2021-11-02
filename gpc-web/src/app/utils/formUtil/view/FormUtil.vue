@@ -5,6 +5,7 @@
         :model="form.formState"
         :label-col="form.labelCol"
         :wrapper-col="form.wrapperCol"
+        :rules="form.rules"
         @finishFailed="form.handleFinishFailed"
         @finish="form.onSubmit"
     >

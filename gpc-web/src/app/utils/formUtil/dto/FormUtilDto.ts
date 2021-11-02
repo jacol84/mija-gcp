@@ -9,7 +9,8 @@ export interface FormUtilDto<U> {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
     handleFinishFailed: Fn,
-    formState: U
+    formState: U,
+    rules: any
 }
 
 export function makeDto<U>(formExt?: FormExt): FormUtilDto<U> {
@@ -18,6 +19,7 @@ export function makeDto<U>(formExt?: FormExt): FormUtilDto<U> {
         labelCol: {span: 24},
         wrapperCol: {span: 24},
         formState: {},
-        close: formExt?.close ? formExt?.close : () => {}
+        close: formExt?.close ? formExt?.close : emptyFunction,
+        rules: {}
     } as FormUtilDto<U>
 }

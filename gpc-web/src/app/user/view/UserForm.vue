@@ -1,14 +1,14 @@
 <template>
-<!--  <div>UserForm.vue &#45;&#45; {{ modalForm.opening }} {{ JSON.stringify(modalForm) }}</div>-->
-<!--  <div>UserForm.vue - time &#45;&#45; {{ time }}</div>-->
+  <!--  <div>UserForm.vue &#45;&#45; {{ modalForm.opening }} {{ JSON.stringify(modalForm) }}</div>-->
+  <!--  <div>UserForm.vue - time &#45;&#45; {{ time }}</div>-->
   <FormUtil :form="formUtil">
     <a-form-item :label="labels.dateAdd">
       <a-date-picker v-model:value="formUtil.formState.aDate" :placeholder="labels.dateAdd" style="width: 100%"/>
     </a-form-item>
-    <a-form-item :label="labels.name">
+    <a-form-item :label="labels.name" name="name">
       <a-input v-model:value="formUtil.formState.name" :placeholder="labels.name"/>
     </a-form-item>
-    <a-form-item :label="labels.lastName">
+    <a-form-item :label="labels.lastName" name="lastName">
       <a-input v-model:value="formUtil.formState.lastName" :placeholder="labels.lastName"/>
     </a-form-item>
     <a-form-item>
@@ -71,7 +71,7 @@ export default defineComponent({
     AInputPassword,
   },
   setup(props) {
-    const {formUtil } = userFormService(props.modalForm, props.formExt)
+    const {formUtil} = userFormService(props.modalForm, props.formExt)
 
     formUtil.handleFinishFailed = (errors: ValidateErrorEntity<FormUserState>) => {
       console.error(errors);
