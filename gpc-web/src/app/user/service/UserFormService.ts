@@ -5,12 +5,16 @@ import {FormUserState} from "/@/app/user/dto";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 import {ModalForm} from "/@/app/test";
 
-function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormUserState>>, id?: number ) {
+function loadDateForm(formUtil: UnwrapRef<FormUtilDto<FormUserState>>, id?: number) {
     if (id) {
         const handleSearch = (idz: number) => {
-            ajax.getJson<FormUserState>(`user/${idz}`).then(x => {
+            Promise.all([
+                ajax.getJson<FormUserState>(`user/${idz}`),
+                ajax.getJson<FormUserState>(`user/params`)
+            ]).then(x => {
                     formUtil.loading = false;
-                    formUtil.formState = x
+                    formUtil.formState = x[0];
+                    console.log(x[1])
                 }
             );
         };
@@ -27,42 +31,35 @@ function resetValue(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
 
 function onCreate(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
     console.log(JSON.stringify(formUtil.formState));
-
-    ajax.sendPost<FormUserState>('user', formUtil.formState).then(x => {
-            formUtil.loading = false;
-            formUtil.close()
-            //FIXME what next
-            //when error
-            //when valid
-        }
-    );
+    return ajax.sendPost<FormUserState>('user', formUtil.formState);
 }
 
 function onUpdate(id: number, formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>) {
     console.log(JSON.stringify(formUtil.formState));
-
-    ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState).then(x => {
-            formUtil.loading = false;
-            formUtil.close()
-            //FIXME what next
-            //when error
-            //when valid
-        }
-    );
+    return ajax.sendPut<FormUserState>(`user/${id}`, formUtil.formState)
 }
 
 function onSubmit(formUtil: UnwrapNestedRefs<FormUtilDto<FormUserState>>, id?: number) {
     return () => {
         formUtil.loading = true;
-        id ? onUpdate(id, formUtil) : onCreate(formUtil);
+        const formUserStatePromise = id ? onUpdate(id, formUtil) : onCreate(formUtil);
+        Promise.all([formUserStatePromise]
+        ).then(x => {
+                formUtil.loading = false;
+                formUtil.close()
+                //FIXME what next
+                //when error
+                //when valid
+            }
+        );
     }
 }
 
 
 const rules = {
     name: [
-         { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+        {required: true, message: 'Please input Activity name', trigger: 'blur'},
+        {min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur'},
     ],
     // region: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
     // date1: [{ required: true, message: 'Please pick a date', trigger: 'change', type: 'object' }],
@@ -83,6 +80,7 @@ export function userFormService(modalForm?: ModalForm | undefined, formExt?: For
     const formUtil = reactive(makeDto<FormUserState>(formExt));
     formUtil.rules = rules
     resetValue(formUtil);
+    loadDateForm(formUtil, modalForm?.id);
     watch(() => modalForm?.opening, (y, x) => {
         resetValue(formUtil);
         loadDateForm(formUtil, modalForm?.id);

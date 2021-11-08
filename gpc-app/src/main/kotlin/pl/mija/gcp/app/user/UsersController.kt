@@ -22,13 +22,15 @@ internal class UsersController {
         mutableList.removeIf { it.id == id }
 
         val validate = user.validateModel()
-        println("""
+        println(
+            """
             
             /////////aaa
             $validate
             /////////aaa
             
-            """.trimIndent())
+            """.trimIndent()
+        )
         return user.mapper().also {
             mutableList.add(it)
         }
@@ -36,6 +38,13 @@ internal class UsersController {
 
     fun delete(id: Long): Boolean {
         return mutableList.removeIf { it.id == id }
+    }
+
+    fun getParams(): UserParams {
+        val userParams = UserParams()
+        userParams.rules = mapOf("name" to "required")
+        return userParams
+
     }
 
 }

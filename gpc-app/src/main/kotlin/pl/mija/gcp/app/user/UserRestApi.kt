@@ -16,6 +16,10 @@ fun Route.userApi() {
         val result = UsersController().getAll()
         call.respond(HttpStatusCode.OK, result)
     }
+    get("/user/params") {
+        val result = UsersController().getParams()
+        call.respond(HttpStatusCode.OK, result)
+    }
     get("/user/{id}") {
         val id = call.parameters["id"]!!.toLong()
         val result = UsersController().getById(id)
